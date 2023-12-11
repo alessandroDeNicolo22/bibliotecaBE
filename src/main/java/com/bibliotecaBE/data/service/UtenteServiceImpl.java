@@ -5,7 +5,6 @@ import com.bibliotecaBE.data.dto.Request.UtenteRequest;
 import com.bibliotecaBE.data.dto.Response.UtenteResponse;
 import com.bibliotecaBE.data.entity.Utente;
 import com.bibliotecaBE.data.enums.Role;
-import com.bibliotecaBE.data.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

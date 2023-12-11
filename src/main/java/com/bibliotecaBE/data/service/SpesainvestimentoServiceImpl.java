@@ -6,7 +6,7 @@ import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.bibliotecaBE.data.entity.QOrdinedettaglio;
 import com.bibliotecaBE.data.entity.QSpesainvestimento;
 import com.bibliotecaBE.data.entity.RichiestaDiAcquisto;
-import com.bibliotecaBE.data.repository.SpesainvestimentoRepo;
+import com.bibliotecaBE.data.repository.StudenteRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ public class SpesainvestimentoServiceImpl implements SpesainvestimentoService{
     @Autowired
     EntityManager emanager;
     @Autowired
-    SpesainvestimentoRepo repo;
+    StudenteRepo repo;
     @Override
     public Page<SpesainvestimentoResponse> getAllSpeseinvestimento(int pageIndex, int pageSize) {
     return null;

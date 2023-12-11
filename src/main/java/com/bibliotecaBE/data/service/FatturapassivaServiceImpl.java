@@ -5,8 +5,8 @@ import com.bibliotecaBE.data.dto.Request.FilterDateRequest;
 import com.bibliotecaBE.data.dto.Response.FatturadettaglioResponse;
 import com.bibliotecaBE.data.dto.Response.FatturapassivaResponse;
 import com.bibliotecaBE.data.entity.*;
-import com.bibliotecaBE.data.repository.FatturadettaglioRepo;
-import com.bibliotecaBE.data.repository.FatturapassivaRepo;
+import com.bibliotecaBE.data.repository.CopiaRepo;
+import com.bibliotecaBE.data.repository.GenereRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class FatturapassivaServiceImpl implements FatturapassivaService{
     @Autowired
-    FatturapassivaRepo repo;
+    GenereRepo repo;
 
     @Autowired
     EntityManager emanager;
 
     @Autowired
-    FatturadettaglioRepo dettaglioRepo;
+    CopiaRepo dettaglioRepo;
 
     private final QFatturadettaglio fatturadettaglio = QFatturadettaglio.fatturadettaglio;
 

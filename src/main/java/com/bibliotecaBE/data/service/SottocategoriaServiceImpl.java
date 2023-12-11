@@ -3,9 +3,8 @@ package com.bibliotecaBE.data.service;
 import com.bibliotecaBE.data.dto.Request.SottocategoriaRequest;
 import com.bibliotecaBE.data.dto.Response.SottocategoriaResponse;
 import com.bibliotecaBE.data.entity.*;
-import com.bibliotecaBE.data.repository.OrdinedettaglioRepo;
-import com.bibliotecaBE.data.repository.SottocategoriaRepo;
-import com.bibliotecaBE.data.repository.SpesainvestimentoRepo;
+import com.bibliotecaBE.data.repository.RichiestaDiAcquistoRepo;
+import com.bibliotecaBE.data.repository.StudenteRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,13 +24,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class SottocategoriaServiceImpl implements SottocategoriaService {
     @Autowired
-    SottocategoriaRepo repo;
+    RichiestaDiAcquistoRepo repo;
     @Autowired
     EntityManager emanager;
     @Autowired
     OrdinedettaglioRepo ordinedettaglioRepo;
     @Autowired
-    SpesainvestimentoRepo repoSpesa;
+    StudenteRepo repoSpesa;
     @Override
     public Page<SottocategoriaResponse> getAllSottocategoriaPage(int pageIndex, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);

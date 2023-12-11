@@ -4,8 +4,8 @@ import com.bibliotecaBE.data.dto.Request.FatturadettaglioRequest;
 import com.bibliotecaBE.data.entity.Copia;
 import com.bibliotecaBE.data.entity.Libro;
 import com.bibliotecaBE.data.entity.QFatturapassiva;
-import com.bibliotecaBE.data.repository.FatturadettaglioRepo;
-import com.bibliotecaBE.data.repository.FatturapassivaRepo;
+import com.bibliotecaBE.data.repository.CopiaRepo;
+import com.bibliotecaBE.data.repository.GenereRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 public class FatturadettaglioServiceImpl implements FatturadettaglioService{
 
     @Autowired
-    FatturadettaglioRepo repo;
+    CopiaRepo repo;
 
     @Autowired
     EntityManager entityManager;
 
     @Autowired
-    FatturapassivaRepo fattRepo;
+    GenereRepo fattRepo;
 
     @Override
     public void saveDettagli(ArrayList<FatturadettaglioRequest> elencoDettagli) {

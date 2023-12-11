@@ -18,7 +18,7 @@ import com.bibliotecaBE.data.dto.Response.FornitoreResponse;
 import com.bibliotecaBE.data.entity.QFornitore;
 import com.bibliotecaBE.data.entity.QOrdineacquisto;
 import com.bibliotecaBE.data.entity.QPreventivo;
-import com.bibliotecaBE.data.repository.FornitoreRepo;
+import com.bibliotecaBE.data.repository.LibroRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.PageImpl;
 
@@ -26,7 +26,7 @@ import org.springframework.data.domain.PageImpl;
 @Transactional
 public class FornitoreServiceImpl implements FornitoreService{
 	@Autowired
-	FornitoreRepo repo;
+	LibroRepo repo;
 	@Autowired
 	EntityManager emanager;
 

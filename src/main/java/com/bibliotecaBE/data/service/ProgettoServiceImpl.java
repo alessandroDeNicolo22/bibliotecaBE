@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 
 import com.bibliotecaBE.data.dto.Request.ProgettoRequest;
 import com.bibliotecaBE.data.dto.Response.ProgettoResponse;
-import com.bibliotecaBE.data.repository.ProgettoRepo;
+import com.bibliotecaBE.data.repository.ProfessoreRepo;
 
 @Service
 @Transactional
 public class ProgettoServiceImpl implements ProgettoService{
 
 	@Autowired
-	ProgettoRepo progettoRepo;
+	ProfessoreRepo progettoRepo;
 
 	@Autowired
 	EntityManager emanager;

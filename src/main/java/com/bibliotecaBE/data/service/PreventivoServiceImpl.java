@@ -5,7 +5,7 @@ import com.bibliotecaBE.data.dto.Response.PreventivoResponse;
 import com.bibliotecaBE.data.entity.Prestito;
 import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.bibliotecaBE.data.entity.QPreventivo;
-import com.bibliotecaBE.data.repository.PreventivoRepo;
+import com.bibliotecaBE.data.repository.PrestitoRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public class PreventivoServiceImpl implements PreventivoService{
     EntityManager emanager;
 
     @Autowired
-    PreventivoRepo preventivoRepo;
+    PrestitoRepo preventivoRepo;
 
     public ArrayList<PreventivoResponse> getAllPreventivi(){
         return this.entitiesToDTO((ArrayList<Prestito>) this.preventivoRepo.findAll());

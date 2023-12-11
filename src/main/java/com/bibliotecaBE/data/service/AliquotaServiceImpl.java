@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import com.bibliotecaBE.data.entity.Autore;
+import com.bibliotecaBE.data.repository.AutoreRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,14 +17,13 @@ import com.bibliotecaBE.data.dto.Request.AliquotaivaRequest;
 import com.bibliotecaBE.data.dto.Response.AliquotaivaResponse;
 import com.bibliotecaBE.data.entity.QAliquotaiva;
 import com.bibliotecaBE.data.entity.QFatturadettaglio;
-import com.bibliotecaBE.data.repository.AliquotaivaRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 @Service
 @Transactional
 public class AliquotaServiceImpl implements AliquotaService{
 
 	@Autowired
-	AliquotaivaRepo repo;
+	AutoreRepo repo;
 	@Autowired
 	EntityManager emanager;
 

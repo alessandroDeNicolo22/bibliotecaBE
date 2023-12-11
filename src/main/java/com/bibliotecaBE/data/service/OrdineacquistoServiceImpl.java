@@ -5,8 +5,7 @@ import com.bibliotecaBE.data.dto.Request.OrdineacquistoRequest;
 import com.bibliotecaBE.data.dto.Response.OrdineacquistoResponse;
 import com.bibliotecaBE.data.dto.Response.OrdinedettaglioResponse;
 import com.bibliotecaBE.data.entity.*;
-import com.bibliotecaBE.data.repository.OrdineacquistoRepo;
-import com.bibliotecaBE.data.repository.OrdinedettaglioRepo;
+import com.bibliotecaBE.data.repository.PrenotazioneRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class OrdineacquistoServiceImpl implements OrdineacquistoService{
    @Autowired
-    OrdineacquistoRepo repo;
+   PrenotazioneRepo repo;
 
    @Autowired
    EntityManager emanager;

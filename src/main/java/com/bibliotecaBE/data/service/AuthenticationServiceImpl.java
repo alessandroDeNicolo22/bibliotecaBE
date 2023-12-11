@@ -3,7 +3,6 @@ package com.bibliotecaBE.data.service;
 import com.bibliotecaBE.data.config.ServiceJWT;
 import com.bibliotecaBE.data.dto.Request.AuthenticationRequest;
 import com.bibliotecaBE.data.dto.Response.AuthenticationResponse;
-import com.bibliotecaBE.data.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

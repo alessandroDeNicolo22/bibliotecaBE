@@ -2,10 +2,8 @@ package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.OrdinedettaglioRequest;
 import com.bibliotecaBE.data.entity.Prenotazione;
-import com.bibliotecaBE.data.entity.Ordinedettaglio;
 import com.bibliotecaBE.data.entity.QOrdineacquisto;
-import com.bibliotecaBE.data.repository.OrdineacquistoRepo;
-import com.bibliotecaBE.data.repository.OrdinedettaglioRepo;
+import com.bibliotecaBE.data.repository.PrenotazioneRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class OrdinedettaglioServiceImpl implements OrdinedettaglioService{
     @Autowired
     EntityManager entityManager;
     @Autowired
-    OrdineacquistoRepo ordineRepo;
+    PrenotazioneRepo ordineRepo;
 
 
     @Override

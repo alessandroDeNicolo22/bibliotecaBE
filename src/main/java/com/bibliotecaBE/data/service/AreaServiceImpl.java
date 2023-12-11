@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 
 import com.bibliotecaBE.data.dto.Request.AreaRequest;
 import com.bibliotecaBE.data.dto.Response.AreaResponse;
-import com.bibliotecaBE.data.repository.AreaRepo;
+import com.bibliotecaBE.data.repository.CasaeditriceRepo;
 
 @Service
 @Transactional
 public class AreaServiceImpl implements AreaService{
 
 	@Autowired
-	AreaRepo areaRepo;
+	CasaeditriceRepo casaeditriceRepo;
 
 	@Autowired
 	EntityManager emanager;
@@ -30,7 +30,7 @@ public class AreaServiceImpl implements AreaService{
 	@Override
 	public ArrayList<AreaResponse> getAllAree() {
 		// TODO Auto-generated method stub
-		return EntitiesToDTO((ArrayList<Casaeditrice>) areaRepo.findAll());
+		return EntitiesToDTO((ArrayList<Casaeditrice>) casaeditriceRepo.findAll());
 	}
 
 	private ArrayList<AreaResponse> EntitiesToDTO(ArrayList<Casaeditrice> elenco) {
@@ -46,7 +46,7 @@ public class AreaServiceImpl implements AreaService{
 	public Page<AreaResponse> getAllAreePage(int pageIndex, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
-		Page<Casaeditrice> areaPage = areaRepo.findAll(pageRequest);
+		Page<Casaeditrice> areaPage = casaeditriceRepo.findAll(pageRequest);
 		return areaPage.map(this::entityToDTO);
 	}
 
@@ -57,7 +57,7 @@ public class AreaServiceImpl implements AreaService{
 	@Override
 	public AreaResponse getAreaById(Integer id) {
 		// TODO Auto-generated method stub
-		Casaeditrice oCasaeditrice = areaRepo.findById(id).get();
+		Casaeditrice oCasaeditrice = casaeditriceRepo.findById(id).get();
 		return new AreaResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
 	}
 
@@ -65,15 +65,15 @@ public class AreaServiceImpl implements AreaService{
 	public void save(AreaRequest area) {
 		// TODO Auto-generated method stub
 		if (area.getId() == null) {
-			areaRepo.save(new Casaeditrice(area.getId(), area.getCodice(), area.getArea()));
+			casaeditriceRepo.save(new Casaeditrice(area.getId(), area.getCodice(), area.getArea()));
 		} else {
-			areaRepo.save(this.dTOUpdateEntity(area));
+			casaeditriceRepo.save(this.dTOUpdateEntity(area));
 		}
 	}
 
 	private Casaeditrice dTOUpdateEntity(AreaRequest area) {
 		// TODO Auto-generated method stub
-		Casaeditrice oCasaeditrice = areaRepo.findById(area.getId()).get();
+		Casaeditrice oCasaeditrice = casaeditriceRepo.findById(area.getId()).get();
 
 		if (area.getCodice() != null) {
 			oCasaeditrice.setCodice(area.getCodice());
@@ -89,7 +89,7 @@ public class AreaServiceImpl implements AreaService{
 	@Override
 	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
-		areaRepo.deleteById(id);
+		casaeditriceRepo.deleteById(id);
 
 	}
 
