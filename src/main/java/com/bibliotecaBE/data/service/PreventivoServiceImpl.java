@@ -1,7 +1,7 @@
 package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.PreventivoRequest;
-import com.bibliotecaBE.data.dto.Response.PreventivoResponse;
+import com.bibliotecaBE.data.dto.Response.PrestitoResponse;
 import com.bibliotecaBE.data.entity.Prestito;
 import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.bibliotecaBE.data.entity.QPreventivo;
@@ -29,24 +29,24 @@ public class PreventivoServiceImpl implements PreventivoService{
     @Autowired
     PrestitoRepo preventivoRepo;
 
-    public ArrayList<PreventivoResponse> getAllPreventivi(){
+    public ArrayList<PrestitoResponse> getAllPreventivi(){
         return this.entitiesToDTO((ArrayList<Prestito>) this.preventivoRepo.findAll());
     }
 
-    private ArrayList<PreventivoResponse> entitiesToDTO(ArrayList<Prestito> elenco) {
-        ArrayList<PreventivoResponse> elencoResponse = new ArrayList<>();
+    private ArrayList<PrestitoResponse> entitiesToDTO(ArrayList<Prestito> elenco) {
+        ArrayList<PrestitoResponse> elencoResponse = new ArrayList<>();
         for(Prestito oPrestito :elenco){
-            elencoResponse.add(new PreventivoResponse(oPrestito.getId(), oPrestito.getCodice(), oPrestito.getPreventivo(),
+            elencoResponse.add(new PrestitoResponse(oPrestito.getId(), oPrestito.getCodice(), oPrestito.getPreventivo(),
                     oPrestito.getOGenere(), oPrestito.getImporto(), oPrestito.getData()));
         }
         return elencoResponse;
     }
 
     @Override
-    public Page<PreventivoResponse> getPagePerIdFornitore(Integer id, Integer pageIndex, Integer pageSize) {
+    public Page<PrestitoResponse> getPagePerIdFornitore(Integer id, Integer pageIndex, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         List<Prestito> preventivi = this.getPreventivi(id);
-        ArrayList<PreventivoResponse> elencoResponse = preventivi.stream().map(a->new PreventivoResponse(a.getId(), a.getCodice(), a.getPreventivo(), a.getOGenere(),
+        ArrayList<PrestitoResponse> elencoResponse = preventivi.stream().map(a->new PrestitoResponse(a.getId(), a.getCodice(), a.getPreventivo(), a.getOGenere(),
                         a.getImporto(), a.getData())).collect(Collectors.toCollection(ArrayList::new));
 
         int startIndex = pageIndex * pageSize;
@@ -54,15 +54,15 @@ public class PreventivoServiceImpl implements PreventivoService{
             return Page.empty();
         }
         int endIndex = Math.min(startIndex + pageSize, preventivi.size());
-        List<PreventivoResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+        List<PrestitoResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
 
         return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }
 
     @Override
-    public PreventivoResponse findById(Integer id) {
+    public PrestitoResponse findById(Integer id) {
         Prestito oPrestito = this.preventivoRepo.findById(id).get();
-        return new PreventivoResponse(oPrestito.getId(), oPrestito.getCodice(), oPrestito.getPreventivo(), oPrestito.getOGenere(), oPrestito.getImporto(),
+        return new PrestitoResponse(oPrestito.getId(), oPrestito.getCodice(), oPrestito.getPreventivo(), oPrestito.getOGenere(), oPrestito.getImporto(),
                 oPrestito.getData());
     }
 

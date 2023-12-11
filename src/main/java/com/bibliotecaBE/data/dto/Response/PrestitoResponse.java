@@ -11,7 +11,7 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PreventivoResponse {
+public class PrestitoResponse {
 
     //********** SEZIONE ATTRIBUTI ***********
 

@@ -1,5 +1,6 @@
 package com.bibliotecaBE.data.dto.Response;
 
+import com.bibliotecaBE.data.entity.Libro;
 import com.bibliotecaBE.data.entity.Prenotazione;
 import com.bibliotecaBE.data.entity.Professore;
 import com.bibliotecaBE.data.entity.RichiestaDiAcquisto;
@@ -8,27 +9,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrdinedettaglioResponse {
+public class PrenotazioneResponse {
 //	SEZIONE ATTRIBUTI
 
     @JsonProperty
     private Integer id;
 
     @JsonProperty
-    private RichiestaDiAcquisto oSpesaInvestimento;
+    private Libro oLibro;
 
     @JsonProperty
-    private Professore oProfessore;
+    private Integer idRichiedente;
 
     @JsonProperty
-    private Prenotazione oOrdineAcquisto;
+    private String richiedente;
 
     @JsonProperty
-    private Float importo;
+    private Date data;
 
     @JsonProperty
-    private Integer quantita;
+    private String evasa;
 }

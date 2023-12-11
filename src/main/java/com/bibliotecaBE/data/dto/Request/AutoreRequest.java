@@ -10,18 +10,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AliquotaivaRequest {
+public class AutoreRequest {
 	//***Sezione Attributi***\\\
 
 	@JsonProperty
 	private Integer id;
 
 	@JsonProperty
-	private int aliquota;
+	private String cognome;
 
 	@JsonProperty
-	private String descrizione;
-	
-	@JsonProperty
-	private List<Copia> elencoDettagliFattura;
+	private String nome;
 }
