@@ -4,29 +4,16 @@ import com.bibliotecaBE.data.entity.Genere;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-
-
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-public class OrdineacquistoResponse {
-//	SEZIONE ATTRIBUTI
-
+public class GenereResponse {
     @JsonProperty
     private Integer id;
 
     @JsonProperty
-    private Double importo;
-
-    @JsonProperty
-    private String ordineacquisto;
-
-    @JsonProperty
-    private Date data;
-
-    @JsonProperty
-    private Genere oGenere;
+    private String nome;
 }

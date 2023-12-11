@@ -9,28 +9,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FatturadettaglioResponse {
+public class CopiaResponse {
     @JsonProperty
     private Integer id;
 
     @JsonProperty
-    private Autore oAutore;
+    private String stato;
 
     @JsonProperty
     private Libro oLibro;
 
     @JsonProperty
-    private Prestito oPrestito;
+    private Date dataDiAcquisto;
 
     @JsonProperty
-    private RichiestaDiAcquisto oRichiestaDiAcquisto;
-
-    @JsonProperty
-    private String dettaglioFattura;
-
-    @JsonProperty
-    private Double importo;
+    private Integer seriale;
 }

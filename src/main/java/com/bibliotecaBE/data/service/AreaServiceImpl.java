@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.bibliotecaBE.data.dto.Request.AreaRequest;
-import com.bibliotecaBE.data.dto.Response.AreaResponse;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 import com.bibliotecaBE.data.repository.CasaeditriceRepo;
 
 @Service
@@ -28,37 +28,37 @@ public class AreaServiceImpl implements AreaService{
 	EntityManager emanager;
 
 	@Override
-	public ArrayList<AreaResponse> getAllAree() {
+	public ArrayList<CasaeditriceResponse> getAllAree() {
 		// TODO Auto-generated method stub
 		return EntitiesToDTO((ArrayList<Casaeditrice>) casaeditriceRepo.findAll());
 	}
 
-	private ArrayList<AreaResponse> EntitiesToDTO(ArrayList<Casaeditrice> elenco) {
+	private ArrayList<CasaeditriceResponse> EntitiesToDTO(ArrayList<Casaeditrice> elenco) {
 		// TODO Auto-generated method stub
-		ArrayList<AreaResponse> elencoResponse = new ArrayList<AreaResponse>();
+		ArrayList<CasaeditriceResponse> elencoResponse = new ArrayList<CasaeditriceResponse>();
 		for(Casaeditrice oCasaeditrice : elenco) {
-			elencoResponse.add(new AreaResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea()));
+			elencoResponse.add(new CasaeditriceResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea()));
 		}
 		return elencoResponse;
 	}
 
 	@Override
-	public Page<AreaResponse> getAllAreePage(int pageIndex, int pageSize) {
+	public Page<CasaeditriceResponse> getAllAreePage(int pageIndex, int pageSize) {
 		// TODO Auto-generated method stub
 		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
 		Page<Casaeditrice> areaPage = casaeditriceRepo.findAll(pageRequest);
 		return areaPage.map(this::entityToDTO);
 	}
 
-	public AreaResponse entityToDTO(Casaeditrice oCasaeditrice) {
-		return new AreaResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
+	public CasaeditriceResponse entityToDTO(Casaeditrice oCasaeditrice) {
+		return new CasaeditriceResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
 	}
 
 	@Override
-	public AreaResponse getAreaById(Integer id) {
+	public CasaeditriceResponse getAreaById(Integer id) {
 		// TODO Auto-generated method stub
 		Casaeditrice oCasaeditrice = casaeditriceRepo.findById(id).get();
-		return new AreaResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
+		return new CasaeditriceResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
 	}
 
 	@Override

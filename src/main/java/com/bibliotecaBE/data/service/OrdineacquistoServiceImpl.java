@@ -2,7 +2,7 @@ package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.FilterDateRequest;
 import com.bibliotecaBE.data.dto.Request.OrdineacquistoRequest;
-import com.bibliotecaBE.data.dto.Response.OrdineacquistoResponse;
+import com.bibliotecaBE.data.dto.Response.LibroResponse;
 import com.bibliotecaBE.data.dto.Response.OrdinedettaglioResponse;
 import com.bibliotecaBE.data.entity.*;
 import com.bibliotecaBE.data.repository.PrenotazioneRepo;
@@ -31,9 +31,9 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
     OrdinedettaglioRepo dettaglioRepo;
 
     @Override
-    public ArrayList<OrdineacquistoResponse> getAll() {
+    public ArrayList<LibroResponse> getAll() {
         ArrayList<Prenotazione> list = (ArrayList<Prenotazione>) repo.findAll();
-        return list.stream().map(o->new OrdineacquistoResponse(o.getId(),
+        return list.stream().map(o->new LibroResponse(o.getId(),
                 o.getImporto(),
                 o.getOrdineAcquisto(),
                 o.getData(),
@@ -41,7 +41,7 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
     }
 
     @Override
-    public Page<OrdineacquistoResponse> getAllOrdini(int id,int pageIndex, int pageSize) {
+    public Page<LibroResponse> getAllOrdini(int id, int pageIndex, int pageSize) {
 
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QOrdineacquisto ordineacquisto = QOrdineacquisto.ordineacquisto;
@@ -50,8 +50,8 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
         return getOrdineacquistoResponses(pageIndex, pageSize, pageRequest, list);
     }
 
-    private Page<OrdineacquistoResponse> getOrdineacquistoResponses(int pageIndex, int pageSize, PageRequest pageRequest, List<Prenotazione> list) {
-        ArrayList<OrdineacquistoResponse> elencoResponse = list.stream().map(o -> new OrdineacquistoResponse(
+    private Page<LibroResponse> getOrdineacquistoResponses(int pageIndex, int pageSize, PageRequest pageRequest, List<Prenotazione> list) {
+        ArrayList<LibroResponse> elencoResponse = list.stream().map(o -> new LibroResponse(
                 o.getId(),
                 o.getImporto(),
                 o.getOrdineAcquisto(),
@@ -63,15 +63,15 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
             return Page.empty();
         }
         int endIndex = Math.min(startIndex + pageSize, list.size());
-        List<OrdineacquistoResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+        List<LibroResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
 
         return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }
 
     @Override
-    public OrdineacquistoResponse getOrdineById(Integer id) {
+    public LibroResponse getOrdineById(Integer id) {
         Prenotazione prenotazione = repo.getReferenceById(id);
-        return new OrdineacquistoResponse(prenotazione.getId(),
+        return new LibroResponse(prenotazione.getId(),
                 prenotazione.getImporto(),
                 prenotazione.getOrdineAcquisto(),
                 prenotazione.getData(),
@@ -141,7 +141,7 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
     }
 
     @Override
-    public Page<OrdineacquistoResponse> filterOrdini(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<LibroResponse> filterOrdini(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QOrdineacquisto ordineacquisto = QOrdineacquisto.ordineacquisto;
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
@@ -163,7 +163,7 @@ public class OrdineacquistoServiceImpl implements OrdineacquistoService{
     }
 
     @Override
-    public Page<OrdineacquistoResponse> filterOnlyDate(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<LibroResponse> filterOnlyDate(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QOrdineacquisto ordineacquisto = QOrdineacquisto.ordineacquisto;
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);

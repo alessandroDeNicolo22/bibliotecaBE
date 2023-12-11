@@ -2,8 +2,8 @@ package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.FatturapassivaRequest;
 import com.bibliotecaBE.data.dto.Request.FilterDateRequest;
-import com.bibliotecaBE.data.dto.Response.FatturadettaglioResponse;
-import com.bibliotecaBE.data.dto.Response.FatturapassivaResponse;
+import com.bibliotecaBE.data.dto.Response.CopiaResponse;
+import com.bibliotecaBE.data.dto.Response.GenereResponse;
 import com.bibliotecaBE.data.entity.*;
 import com.bibliotecaBE.data.repository.CopiaRepo;
 import com.bibliotecaBE.data.repository.GenereRepo;
@@ -34,9 +34,9 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
     private final QFatturadettaglio fatturadettaglio = QFatturadettaglio.fatturadettaglio;
 
     @Override
-    public ArrayList<FatturapassivaResponse> getAll() {
+    public ArrayList<GenereResponse> getAll() {
         ArrayList<Libro> list = (ArrayList<Libro>) repo.findAll();
-        return list.stream().map(f->new FatturapassivaResponse(f.getId(),
+        return list.stream().map(f->new GenereResponse(f.getId(),
            f.getData(),
                 f.getNumero(),
                 f.getDescrizione(),
@@ -44,7 +44,7 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
     }
 
     @Override
-    public Page<FatturapassivaResponse> getAllFatture(int id, int pageIndex, int pageSize) {
+    public Page<GenereResponse> getAllFatture(int id, int pageIndex, int pageSize) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QFatturapassiva fatturapassiva = QFatturapassiva.fatturapassiva;
@@ -54,9 +54,9 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
     }
 
     @Override
-    public FatturapassivaResponse getFatturaById(Integer id) {
+    public GenereResponse getFatturaById(Integer id) {
         Libro libro = repo.getReferenceById(id);
-        return new FatturapassivaResponse(libro.getId(),
+        return new GenereResponse(libro.getId(),
                 libro.getData(),
                 libro.getNumero(),
                 libro.getDescrizione(),
@@ -92,11 +92,11 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
     }
 
     @Override
-    public Page<FatturadettaglioResponse> findDettagli(Integer id, int pageIndex, int pageSize) {
+    public Page<CopiaResponse> findDettagli(Integer id, int pageIndex, int pageSize) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         List<Copia> list = queryFactory.selectFrom(fatturadettaglio).where(fatturadettaglio.oFatturapassiva.id.eq(id)).orderBy(fatturadettaglio.id.asc()).stream().toList();
-        ArrayList<FatturadettaglioResponse> elencoResponse = list.stream().map(f -> new FatturadettaglioResponse(f.getId(),
+        ArrayList<CopiaResponse> elencoResponse = list.stream().map(f -> new CopiaResponse(f.getId(),
                 f.getOAutore(),
                 f.getOFatturapassiva(),
                 f.getOPreventivo(),
@@ -108,15 +108,15 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
             return Page.empty();
         }
         int endIndex = Math.min(startIndex + pageSize, list.size());
-        List<FatturadettaglioResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+        List<CopiaResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
         return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }
 
     @Override
-    public ArrayList<FatturadettaglioResponse> findDettagli1(Integer id) {
+    public ArrayList<CopiaResponse> findDettagli1(Integer id) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         List<Copia> list = queryFactory.selectFrom(fatturadettaglio).where(fatturadettaglio.oFatturapassiva.id.eq(id)).orderBy(fatturadettaglio.id.asc()).stream().toList();
-        return list.stream().map(f -> new FatturadettaglioResponse(f.getId(),
+        return list.stream().map(f -> new CopiaResponse(f.getId(),
                 f.getOAutore(),
                 f.getOFatturapassiva(),
                 f.getOPreventivo(),
@@ -126,7 +126,7 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
     }
 
     @Override
-    public Page<FatturapassivaResponse> filterFatture(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<GenereResponse> filterFatture(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         QFatturapassiva fatturapassiva = QFatturapassiva.fatturapassiva;
         if (filterDateRequest.getType().equals("Fornitore")) {
@@ -145,13 +145,13 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
             return null;
         }
     }
-    private Page<FatturapassivaResponse> createPage(List<Libro> list, Integer pageIndex, Integer pageSize){
+    private Page<GenereResponse> createPage(List<Libro> list, Integer pageIndex, Integer pageSize){
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         return getFatturapassivaResponses(pageIndex, pageSize, pageRequest, list);
     }
 
     @Override
-    public Page<FatturapassivaResponse> filterOnlyDate(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<GenereResponse> filterOnlyDate(FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QFatturapassiva fatturapassiva = QFatturapassiva.fatturapassiva;
@@ -161,8 +161,8 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
         return getFatturapassivaResponses(pageIndex, pageSize, pageRequest, list);
     }
 
-    private Page<FatturapassivaResponse> getFatturapassivaResponses(int pageIndex, int pageSize, PageRequest pageRequest, List<Libro> list) {
-        ArrayList<FatturapassivaResponse> elencoResponse = list.stream().map(f-> new FatturapassivaResponse(f.getId(),
+    private Page<GenereResponse> getFatturapassivaResponses(int pageIndex, int pageSize, PageRequest pageRequest, List<Libro> list) {
+        ArrayList<GenereResponse> elencoResponse = list.stream().map(f-> new GenereResponse(f.getId(),
                 f.getData(),
                 f.getNumero(),
                 f.getDescrizione(),
@@ -173,7 +173,7 @@ public class FatturapassivaServiceImpl implements FatturapassivaService{
             return Page.empty();
         }
         int endIndex = Math.min(startIndex + pageSize, list.size());
-        List<FatturapassivaResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+        List<GenereResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
         return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }
 }

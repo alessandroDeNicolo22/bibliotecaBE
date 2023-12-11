@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bibliotecaBE.data.dto.Request.AreaRequest;
-import com.bibliotecaBE.data.dto.Response.AreaResponse;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/area")
@@ -24,13 +24,13 @@ import com.bibliotecaBE.data.dto.Response.AreaResponse;
 public interface AreaAPI {
 
 	@GetMapping(path = "/list", produces = "application/json")
-	public ResponseEntity<ArrayList<AreaResponse>> getAllAree(HttpServletRequest request);
+	public ResponseEntity<ArrayList<CasaeditriceResponse>> getAllAree(HttpServletRequest request);
 
 	@GetMapping(path = "/listpage", produces = "application/json")
-	public Page<AreaResponse> getAllAreePage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+	public Page<CasaeditriceResponse> getAllAreePage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
-	public ResponseEntity<AreaResponse> findById(HttpServletRequest request, @PathVariable Integer id);
+	public ResponseEntity<CasaeditriceResponse> findById(HttpServletRequest request, @PathVariable Integer id);
 
 	@PostMapping(path = "/nuovoModifica", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody AreaRequest oAreaRequest);

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import com.bibliotecaBE.data.dto.Response.AutoreResponse;
 import com.bibliotecaBE.data.entity.Autore;
 import com.bibliotecaBE.data.repository.AutoreRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.bibliotecaBE.data.dto.Request.AliquotaivaRequest;
-import com.bibliotecaBE.data.dto.Response.AliquotaivaResponse;
 import com.bibliotecaBE.data.entity.QAliquotaiva;
 import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -28,18 +28,18 @@ public class AliquotaServiceImpl implements AliquotaService{
 	EntityManager emanager;
 
 	@Override
-	public ArrayList<AliquotaivaResponse> getAllAliquota() {
+	public ArrayList<AutoreResponse> getAllAliquota() {
 		List<Autore> list = repo.findAll();
-        return list.stream().map(a->new AliquotaivaResponse(
+        return list.stream().map(a->new AutoreResponse(
 				a.getId(),
 				a.getAliquota(),
 				a.getDescrizione())).collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	@Override
-	public AliquotaivaResponse getAliquotaivaById(Integer id) {
+	public AutoreResponse getAliquotaivaById(Integer id) {
 		Autore oAutore = repo.findById(id).get();
-		return new AliquotaivaResponse(oAutore.getId(), oAutore.getAliquota(), oAutore.getDescrizione());
+		return new AutoreResponse(oAutore.getId(), oAutore.getAliquota(), oAutore.getDescrizione());
 	}
 
 	@Override
@@ -66,13 +66,13 @@ public class AliquotaServiceImpl implements AliquotaService{
 	}
 
 	@Override
-	public Page<AliquotaivaResponse> getPageAliquote(Integer pageIndex, Integer pageSize) {
+	public Page<AutoreResponse> getPageAliquote(Integer pageIndex, Integer pageSize) {
 		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
 
 		QAliquotaiva aliquota = QAliquotaiva.aliquotaiva;
 		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
 		List<Autore> aliquote =  queryFactory.selectFrom(aliquota).orderBy(aliquota.id.asc()).fetch();
-		ArrayList<AliquotaivaResponse> elencoResponse = aliquote.stream().map(a->new AliquotaivaResponse(a.getId(), 
+		ArrayList<AutoreResponse> elencoResponse = aliquote.stream().map(a->new AutoreResponse(a.getId(),
 				a.getAliquota(),a.getDescrizione())).collect(Collectors.toCollection(ArrayList::new));
 
 		int startIndex = pageIndex * pageSize;
@@ -80,7 +80,7 @@ public class AliquotaServiceImpl implements AliquotaService{
 			return Page.empty(); 
 		}
 		int endIndex = Math.min(startIndex + pageSize, aliquote.size());
-		List<AliquotaivaResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+		List<AutoreResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
 
 		return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
 	}

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bibliotecaBE.data.controller.api.AreaAPI;
 import com.bibliotecaBE.data.dto.Request.AreaRequest;
-import com.bibliotecaBE.data.dto.Response.AreaResponse;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 import com.bibliotecaBE.data.service.AreaService;
 
 @RestController
@@ -22,21 +22,21 @@ public class AreaRestController implements AreaAPI {
     AreaService areaService;
 
     @Override
-    public ResponseEntity<ArrayList<AreaResponse>> getAllAree(HttpServletRequest request) {
+    public ResponseEntity<ArrayList<CasaeditriceResponse>> getAllAree(HttpServletRequest request) {
         // TODO Auto-generated method stub
-        return new ResponseEntity<ArrayList<AreaResponse>>(areaService.getAllAree(), HttpStatus.OK);
+        return new ResponseEntity<ArrayList<CasaeditriceResponse>>(areaService.getAllAree(), HttpStatus.OK);
     }
     
     @Override
-	public Page<AreaResponse> getAllAreePage(HttpServletRequest request, int pageIndex, int pageSize) {
+	public Page<CasaeditriceResponse> getAllAreePage(HttpServletRequest request, int pageIndex, int pageSize) {
 		// TODO Auto-generated method stub
 		return areaService.getAllAreePage(pageIndex, pageSize);
 	}
 
     @Override
-    public ResponseEntity<AreaResponse> findById(HttpServletRequest request, Integer id) {
+    public ResponseEntity<CasaeditriceResponse> findById(HttpServletRequest request, Integer id) {
         // TODO Auto-generated method stub
-        return new ResponseEntity<AreaResponse>(areaService.getAreaById(id), HttpStatus.OK);
+        return new ResponseEntity<CasaeditriceResponse>(areaService.getAreaById(id), HttpStatus.OK);
     }
 
     @Override

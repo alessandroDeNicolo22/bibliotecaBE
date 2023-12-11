@@ -6,16 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.bibliotecaBE.data.dto.Request.AreaRequest;
-import com.bibliotecaBE.data.dto.Response.AreaResponse;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 
 @Service
 public interface AreaService {
 	
-	public ArrayList<AreaResponse> getAllAree();
+	public ArrayList<CasaeditriceResponse> getAllAree();
 	
-	public Page<AreaResponse> getAllAreePage(int pageIndex, int pageSize);
+	public Page<CasaeditriceResponse> getAllAreePage(int pageIndex, int pageSize);
 	
-	public AreaResponse getAreaById(Integer id);
+	public CasaeditriceResponse getAreaById(Integer id);
 	
 	public void save(AreaRequest area);
 	

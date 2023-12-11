@@ -3,7 +3,7 @@ package com.bibliotecaBE.data.controller;
 import com.bibliotecaBE.data.controller.api.OrdineacquistoAPI;
 import com.bibliotecaBE.data.dto.Request.FilterDateRequest;
 import com.bibliotecaBE.data.dto.Request.OrdineacquistoRequest;
-import com.bibliotecaBE.data.dto.Response.OrdineacquistoResponse;
+import com.bibliotecaBE.data.dto.Response.LibroResponse;
 import com.bibliotecaBE.data.dto.Response.OrdinedettaglioResponse;
 import com.bibliotecaBE.data.service.OrdineacquistoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,18 @@ OrdineacquistoService ordineacquistoService;
 
 
     @Override
-    public ResponseEntity<ArrayList<OrdineacquistoResponse>> list(HttpServletRequest request) {
+    public ResponseEntity<ArrayList<LibroResponse>> list(HttpServletRequest request) {
         return ResponseEntity.ok(ordineacquistoService.getAll());
     }
 
     @Override
-    public ResponseEntity<Page<OrdineacquistoResponse>> getOrdiniByFornitore(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
+    public ResponseEntity<Page<LibroResponse>> getOrdiniByFornitore(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
         return ResponseEntity.ok(ordineacquistoService.getAllOrdini(id,pageIndex,pageSize));
     }
 
 
     @Override
-    public ResponseEntity<OrdineacquistoResponse> findById(HttpServletRequest request, Integer id) {
+    public ResponseEntity<LibroResponse> findById(HttpServletRequest request, Integer id) {
         return ResponseEntity.ok(ordineacquistoService.getOrdineById(id));
     }
 
@@ -59,12 +59,12 @@ OrdineacquistoService ordineacquistoService;
     }
 
     @Override
-    public Page<OrdineacquistoResponse> filterDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<LibroResponse> filterDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         return ordineacquistoService.filterOrdini(filterDateRequest,pageIndex,pageSize);
     }
 
     @Override
-    public Page<OrdineacquistoResponse> filterOnlyDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
+    public Page<LibroResponse> filterOnlyDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
         return ordineacquistoService.filterOnlyDate(filterDateRequest,pageIndex,pageSize);
     }
 //

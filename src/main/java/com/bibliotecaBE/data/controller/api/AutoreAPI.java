@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bibliotecaBE.data.dto.Request.AliquotaivaRequest;
-import com.bibliotecaBE.data.dto.Response.AliquotaivaResponse;
+import com.bibliotecaBE.data.dto.Response.AutoreResponse;
 
-@RequestMapping(path="/aliquotaiva")
+@RequestMapping(path="/autore")
 @CrossOrigin(origins = "http://localhost:4200")
-public interface AliquotaivaAPI {
+public interface AutoreAPI {
 
 	@GetMapping(path = "/list", produces = "application/json")
-	public ResponseEntity<ArrayList<AliquotaivaResponse>> getAllFornitori(HttpServletRequest request);
+	public ResponseEntity<ArrayList<AutoreResponse>> getAllAutori(HttpServletRequest request);
 
 	@GetMapping(path = "/listpage", produces = "application/json")
-	public Page<AliquotaivaResponse> getAllFornitoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+	public Page<AutoreResponse> getAllAutoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
-	public ResponseEntity<AliquotaivaResponse> findById(HttpServletRequest request, @PathVariable Integer id);
+	public ResponseEntity<AutoreResponse> findById(HttpServletRequest request, @PathVariable Integer id);
 
 	@PostMapping(path = "/save", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody AliquotaivaRequest oAliquotaivaRequest);
