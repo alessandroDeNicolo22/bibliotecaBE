@@ -35,7 +35,7 @@ public class Autore {
 	private Integer id;
 
 	@Column(name="Cognome")
-	private int cognome;
+	private String cognome;
 
 	@Column(name="Nome")
 	private String nome;

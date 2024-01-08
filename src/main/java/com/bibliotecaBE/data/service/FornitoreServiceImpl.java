@@ -13,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.bibliotecaBE.data.dto.Request.FornitoreRequest;
-import com.bibliotecaBE.data.dto.Response.FornitoreResponse;
 import com.bibliotecaBE.data.entity.QFornitore;
 import com.bibliotecaBE.data.entity.QOrdineacquisto;
 import com.bibliotecaBE.data.entity.QPreventivo;

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bibliotecaBE.data.controller.api.AutoreAPI;
-import com.bibliotecaBE.data.dto.Request.AliquotaivaRequest;
+import com.bibliotecaBE.data.dto.Request.AutoreRequest;
 
 @RestController
 public class AutoreRestController implements AutoreAPI {
@@ -33,8 +33,8 @@ public class AutoreRestController implements AutoreAPI {
 	}
 
 	@Override
-	public ResponseEntity<?> insertUpdate(HttpServletRequest request, AliquotaivaRequest oAliquotaivaRequest) {
-		service.save(oAliquotaivaRequest);
+	public ResponseEntity<?> insertUpdate(HttpServletRequest request, AutoreRequest oAutoreRequest) {
+		service.save(oAutoreRequest);
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 

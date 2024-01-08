@@ -1,7 +1,7 @@
 package com.bibliotecaBE.data.service;
 
-import com.bibliotecaBE.data.dto.Request.SpesainvestimentoRequest;
-import com.bibliotecaBE.data.dto.Response.SpesainvestimentoResponse;
+import com.bibliotecaBE.data.dto.Request.StudenteRequest;
+import com.bibliotecaBE.data.dto.Response.RichiestaDiAcquistoResponse;
 import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.bibliotecaBE.data.entity.QOrdinedettaglio;
 import com.bibliotecaBE.data.entity.QSpesainvestimento;
@@ -27,28 +27,28 @@ public class SpesainvestimentoServiceImpl implements SpesainvestimentoService{
     @Autowired
     StudenteRepo repo;
     @Override
-    public Page<SpesainvestimentoResponse> getAllSpeseinvestimento(int pageIndex, int pageSize) {
+    public Page<RichiestaDiAcquistoResponse> getAllSpeseinvestimento(int pageIndex, int pageSize) {
     return null;
     }
 
     @Override
-    public ArrayList<SpesainvestimentoResponse> getAllSpesaInvestimento() {
+    public ArrayList<RichiestaDiAcquistoResponse> getAllSpesaInvestimento() {
         ArrayList<RichiestaDiAcquisto> list = (ArrayList<RichiestaDiAcquisto>) repo.findAll();
-        return list.stream().map(spesainvestimento -> new SpesainvestimentoResponse(spesainvestimento.getId(),
+        return list.stream().map(spesainvestimento -> new RichiestaDiAcquistoResponse(spesainvestimento.getId(),
                 spesainvestimento.getSpesainvestimento(),
                 spesainvestimento.getOStudente())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
-    public SpesainvestimentoResponse findById(Integer id) {
+    public RichiestaDiAcquistoResponse findById(Integer id) {
         RichiestaDiAcquisto richiestaDiAcquisto = repo.getReferenceById(id);
-        return new SpesainvestimentoResponse(richiestaDiAcquisto.getId(),
+        return new RichiestaDiAcquistoResponse(richiestaDiAcquisto.getId(),
                 richiestaDiAcquisto.getSpesainvestimento(),
                 richiestaDiAcquisto.getOStudente());
     }
 
     @Override
-    public void save(SpesainvestimentoRequest oSpesaInvestimentoRequest) {
+    public void save(StudenteRequest oSpesaInvestimentoRequest) {
         repo.save(new RichiestaDiAcquisto(oSpesaInvestimentoRequest.getId(),oSpesaInvestimentoRequest.getSpesainvestimento(),oSpesaInvestimentoRequest.getOStudente()));
     }
 
@@ -72,12 +72,12 @@ public class SpesainvestimentoServiceImpl implements SpesainvestimentoService{
     }
 
     @Override
-    public Page<SpesainvestimentoResponse> getSpesaInvestimentoByIdSottoCategoria(Integer id, Integer pageIndex, Integer pageSize) {
+    public Page<RichiestaDiAcquistoResponse> getSpesaInvestimentoByIdSottoCategoria(Integer id, Integer pageIndex, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         QSpesainvestimento spesainvestimento = QSpesainvestimento.spesainvestimento1;
         JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
         List<RichiestaDiAcquisto> list =  queryFactory.selectFrom(spesainvestimento).where(spesainvestimento.oSottocategoria.id.eq(id)).orderBy(spesainvestimento.id.asc()).fetch();
-        ArrayList<SpesainvestimentoResponse> elencoResponse = list.stream().map(s->new SpesainvestimentoResponse(s.getId(),
+        ArrayList<RichiestaDiAcquistoResponse> elencoResponse = list.stream().map(s->new RichiestaDiAcquistoResponse(s.getId(),
                 s.getSpesainvestimento(),s.getOStudente())).collect(Collectors.toCollection(ArrayList::new));
 
         int startIndex = pageIndex * pageSize;
@@ -85,7 +85,7 @@ public class SpesainvestimentoServiceImpl implements SpesainvestimentoService{
             return Page.empty();
         }
         int endIndex = Math.min(startIndex + pageSize, list.size());
-        List<SpesainvestimentoResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+        List<RichiestaDiAcquistoResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
 
         return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }

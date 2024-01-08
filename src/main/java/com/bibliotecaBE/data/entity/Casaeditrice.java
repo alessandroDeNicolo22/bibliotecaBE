@@ -28,7 +28,7 @@ public class Casaeditrice {
 	private Integer id;
 
 	@Column(name = "Nome")
-	private String codice;
+	private String nome;
 
 }
 

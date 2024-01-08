@@ -1,9 +1,8 @@
-package com.bibliotecaBE.data.dto.Response;
+package com.bibliotecaBE.data.dto.Request;
 
 import com.bibliotecaBE.data.entity.Genere;
 import com.bibliotecaBE.data.entity.Libro;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,8 +10,7 @@ import java.sql.Date;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class PrestitoResponse {
+public class PrestitoRequest {
 
     //********** SEZIONE ATTRIBUTI ***********
 

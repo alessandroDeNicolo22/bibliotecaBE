@@ -39,8 +39,6 @@ public class Prestito {
 	@JoinColumn(name="Destinatario")
 	private String destinatario;
 
-	@Column(name="Importo")
-	private Double importo;
 
 	@Column(name ="Datainizio")
 	private Date dataInizio;

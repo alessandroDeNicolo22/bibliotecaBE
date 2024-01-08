@@ -4,18 +4,16 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bibliotecaBE.data.controller.api.LibroAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bibliotecaBE.data.controller.api.FornitoreAPI;
-import com.bibliotecaBE.data.dto.Request.FornitoreRequest;
-import com.bibliotecaBE.data.dto.Response.FornitoreResponse;
 import com.bibliotecaBE.data.service.FornitoreService;
 @RestController
-public class FornitoreRestController implements FornitoreAPI{
+public class FornitoreRestController implements LibroAPI {
 	@Autowired
 	FornitoreService service;
 

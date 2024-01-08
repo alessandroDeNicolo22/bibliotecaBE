@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.bibliotecaBE.data.dto.Request.AutoreRequest;
-import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,27 +15,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bibliotecaBE.data.dto.Response.AutoreResponse;
+import com.bibliotecaBE.data.dto.Request.CasaeditriceRequest;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 
-@RequestMapping(path="/casaeditrice")
 @CrossOrigin(origins = "http://localhost:4200")
-public interface AutoreAPI {
+@RequestMapping(path = "/casaeditrice")
+
+public interface CasaeditriceAPI {
 
 	@GetMapping(path = "/list", produces = "application/json")
     ResponseEntity<ArrayList<CasaeditriceResponse>> getAllCE(HttpServletRequest request);
 
 	@GetMapping(path = "/listpage", produces = "application/json")
-    Page<AutoreResponse> getAllAutoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+    Page<CasaeditriceResponse> getAllCEPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
-    ResponseEntity<AutoreResponse> findById(HttpServletRequest request, @PathVariable Integer id);
+    ResponseEntity<CasaeditriceResponse> findById(HttpServletRequest request, @PathVariable Integer id);
 
-	@PostMapping(path = "/save", produces = "application/json", consumes = "application/json")
-    ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody AutoreRequest oAutoreRequest);
+	@PostMapping(path = "/nuovoModifica", produces = "application/json", consumes = "application/json")
+    ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody CasaeditriceRequest oCasaeditriceRequest);
 
-	@DeleteMapping(path = "/delete/{id}", produces = "application/json")
-    ResponseEntity<?> deleteById(HttpServletRequest request, @PathVariable Integer id);
+	@GetMapping(path = "/checkElimina/{id}", produces = "application/json")
+    ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 
-	@GetMapping(path = "/check/{id}", produces = "application/json")
-    ResponseEntity<Boolean> check(HttpServletRequest request, @PathVariable Integer id);
+	@DeleteMapping(path = "/elimina/{id}", produces = "application/json")
+    ResponseEntity<?> delete(HttpServletRequest request, @PathVariable Integer id);
+
 }

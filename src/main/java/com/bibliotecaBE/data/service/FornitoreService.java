@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import com.bibliotecaBE.data.dto.Request.FornitoreRequest;
-import com.bibliotecaBE.data.dto.Response.FornitoreResponse;
-
 @Service
 public interface FornitoreService {
 	
