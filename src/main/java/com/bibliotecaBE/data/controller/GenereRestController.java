@@ -24,8 +24,8 @@ GenereService service;
     }
 
     @Override
-    public Page<GenereResponse> getAllGenerePage(HttpServletRequest request, int pageIndex, int pageSize) {
-        return null;
+    public ResponseEntity<Page<GenereResponse>> getAllGenerePage(HttpServletRequest request, int pageIndex, int pageSize) {
+        return new ResponseEntity<>(this.service.getPageGeneri(pageIndex, pageSize), HttpStatus.OK);
     }
 
     @Override
@@ -44,5 +44,11 @@ GenereService service;
         service.deleteById(id);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<Boolean> check(HttpServletRequest request, Integer id) {
+        return new ResponseEntity<>(this.service.checkElimina(id), HttpStatus.OK);
+    }
+
 
 }
