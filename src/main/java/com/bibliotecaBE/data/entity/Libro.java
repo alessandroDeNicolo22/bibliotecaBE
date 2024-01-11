@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,17 +22,18 @@ public class Libro {
 	private Integer id;
 
 	@ManyToOne
-	@Column(name="IDAutore")
+	@JoinColumn(name="IDAutore")
 	private Autore oAutore;
 
 	@ManyToOne
-	@Column(name="IDGenere")
+	@JoinColumn(name="IDGenere")
 	private Genere oGenere;
 
 	@ManyToOne
-	@Column(name="IDCasaeditrice")
+	@JoinColumn(name="IDCasaeditrice")
 	private Casaeditrice oCasaeditrice;
 
-	@JoinColumn(name="Titolo")
+	@Column(name="Titolo")
 	private String titolo;
+
 }

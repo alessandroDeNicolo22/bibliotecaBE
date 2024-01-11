@@ -18,18 +18,15 @@ public interface StudenteAPI {
     ResponseEntity<ArrayList<StudenteResponse>> getAllStudenti(HttpServletRequest request);
 
     @GetMapping(path = "/listPage", produces = "application/json")
-    Page<StudenteRequest> getAllSpeseInvestimentoPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+    Page<StudenteResponse> getAllStudentiPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
     @GetMapping(path ="/findbyid/{id}", produces = "application/json")
     ResponseEntity<StudenteResponse> findbyid(HttpServletRequest request, @PathVariable Integer id);
 
     @PostMapping(path = "/save", produces = "application/json", consumes = "application/json")
-    ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody StudenteRequest studenteRequest);
+    ResponseEntity<?> save(HttpServletRequest request, @RequestBody StudenteRequest studenteRequest);
 
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> delete(HttpServletRequest request, @PathVariable Integer id);
-
-    @GetMapping(path = "/checkDelete/{id}", produces = "application/json")
-    ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 
 }

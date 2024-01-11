@@ -1,10 +1,8 @@
 package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.GenereRequest;
-import com.bibliotecaBE.data.dto.Response.CopiaResponse;
 import com.bibliotecaBE.data.dto.Response.GenereResponse;
 import com.bibliotecaBE.data.entity.*;
-import com.bibliotecaBE.data.repository.CopiaRepo;
 import com.bibliotecaBE.data.repository.GenereRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +56,9 @@ public class GenereServiceImpl implements GenereService {
         repo.save(genere);
     }
 
-//    @Override
-//    public void deleteById(Integer id) {
-//        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-//        QFatturadettaglio qFatturadettaglio = QFatturadettaglio.fatturadettaglio;
-//        queryFactory.delete(qFatturadettaglio).where(qFatturadettaglio.oFatturapassiva.id.eq(id)).execute();
-//        repo.deleteById(id);
-//    }
+    @Override
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
+    }
 
 }

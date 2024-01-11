@@ -28,6 +28,4 @@ public interface GenereAPI {
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> deleteById(HttpServletRequest request, @PathVariable Integer id);
 
-    @GetMapping(path = "/checkElimina/{id}", produces = "application/json")
-    ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 }

@@ -33,7 +33,7 @@ public class Prenotazione {
 	private Integer id;
 
 	@ManyToOne
-	@Column(name = "IDLibro")
+	@JoinColumn(name = "IDLibro")
 	private Libro oLibro;
 	
 	@Column(name = "IDRichiedente")
@@ -42,9 +42,9 @@ public class Prenotazione {
 	@Column(name = "Richiedente")
 	private String richiedente;
 
-	@JoinColumn(name = "Data")
+	@Column(name = "Data")
 	private Date data;
 
-	@JoinColumn(name = "Evasa")
+	@Column(name = "Evasa")
 	private String evasa;
 }

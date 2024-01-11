@@ -3,8 +3,6 @@ package com.bibliotecaBE.data.service;
 import com.bibliotecaBE.data.dto.Request.PrestitoRequest;
 import com.bibliotecaBE.data.dto.Response.PrestitoResponse;
 import com.bibliotecaBE.data.entity.Prestito;
-import com.bibliotecaBE.data.entity.QFatturadettaglio;
-import com.bibliotecaBE.data.entity.QPreventivo;
 import com.bibliotecaBE.data.repository.PrestitoRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,7 @@ public class PrestitoServiceImpl implements PrestitoService {
     private ArrayList<PrestitoResponse> entitiesToDTO(ArrayList<Prestito> elenco) {
         ArrayList<PrestitoResponse> elencoResponse = new ArrayList<>();
         for(Prestito oPrestito :elenco){
-            elencoResponse.add(new PrestitoResponse(oPrestito.getId(), oPrestito.getIdDestinatario(), oPrestito.getOLibro(),
+            elencoResponse.add(new PrestitoResponse(oPrestito.getId(), oPrestito.getIdDestinatario(), oPrestito.getOCopia().getOLibro(),
                     oPrestito.getDestinatario(), oPrestito.getDataInizio(), oPrestito.getDataFine(), oPrestito.getDataRestituzione()));
         }
         return elencoResponse;
@@ -64,7 +62,7 @@ public class PrestitoServiceImpl implements PrestitoService {
         Prestito oPrestito = this.repo.getReferenceById(id);
         return new PrestitoResponse(oPrestito.getId(),
                 oPrestito.getIdDestinatario(),
-                oPrestito.getOLibro(),
+                oPrestito.getOCopia().getOLibro(),
                 oPrestito.getDestinatario(),
                 oPrestito.getDataInizio(),
                 oPrestito.getDataFine(),
@@ -74,7 +72,7 @@ public class PrestitoServiceImpl implements PrestitoService {
     @Override
     public void save(PrestitoRequest oPrestitoRequest) {
         if(oPrestitoRequest.getId() == null){
-            this.repo.save(new Prestito(null, oPrestitoRequest.getIdDestinatario(), oPrestitoRequest.getOLibro(),
+            this.repo.save(new Prestito(null, oPrestitoRequest.getIdDestinatario(), oPrestitoRequest.getOCopia(),
                     oPrestitoRequest.getDestinatario(), oPrestitoRequest.getDataInizio(), oPrestitoRequest.getDataFine(),
                     oPrestitoRequest.getDataRestituzione()));
         }else{

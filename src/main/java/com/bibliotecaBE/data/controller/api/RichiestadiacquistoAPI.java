@@ -32,7 +32,4 @@ public interface RichiestadiacquistoAPI {
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> delete (HttpServletRequest request, @PathVariable Integer id);
 
-    @GetMapping(path = "/check/{id}", produces = "application/json")
-    ResponseEntity<Boolean> checkDelete (HttpServletRequest request, @PathVariable Integer id);
-
 }

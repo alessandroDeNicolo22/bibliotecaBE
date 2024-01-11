@@ -2,8 +2,6 @@ package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.RichiestaDiAcquistoRequest;
 import com.bibliotecaBE.data.dto.Response.RichiestaDiAcquistoResponse;
-import com.bibliotecaBE.data.dto.Response.StudenteResponse;
-import com.bibliotecaBE.data.entity.RichiestaDiAcquisto;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

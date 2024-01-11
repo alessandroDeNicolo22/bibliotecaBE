@@ -25,9 +25,6 @@ public interface PrestitoAPI {
     @PostMapping(path = "/nuovoModifica", produces = "application/json", consumes = "application/json")
     ResponseEntity<?> save(HttpServletRequest request, @RequestBody PrestitoRequest oPrestitoRequest);
 
-    @GetMapping(path = "/checkDelete/{id}", produces = "application/json")
-    ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
-
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> delete(HttpServletRequest request, @PathVariable Integer id);
 }

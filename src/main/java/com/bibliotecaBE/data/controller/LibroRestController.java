@@ -1,5 +1,6 @@
 package com.bibliotecaBE.data.controller;
 
+import com.bibliotecaBE.data.controller.api.LibroAPI;
 import com.bibliotecaBE.data.controller.api.PrenotazioneAPI;
 import com.bibliotecaBE.data.dto.Request.LibroRequest;
 import com.bibliotecaBE.data.dto.Response.LibroResponse;
@@ -15,87 +16,37 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @RestController
-public class LibroRestController implements PrenotazioneAPI {
+public class LibroRestController implements LibroAPI {
+
 @Autowired
-LibroService ordineacquistoService;
+LibroService service;
 
 
     @Override
-    public ResponseEntity<ArrayList<LibroResponse>> list(HttpServletRequest request) {
-        return ResponseEntity.ok(ordineacquistoService.getAll());
+    public ResponseEntity<ArrayList<LibroResponse>> getAllLibro(HttpServletRequest request) {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @Override
-    public ResponseEntity<Page<LibroResponse>> getOrdiniByFornitore(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
-        return ResponseEntity.ok(ordineacquistoService.getAllOrdini(id,pageIndex,pageSize));
-    }
-
-
-    @Override
-    public ResponseEntity<LibroResponse> findById(HttpServletRequest request, Integer id) {
-        return ResponseEntity.ok(ordineacquistoService.getOrdineById(id));
+    public ResponseEntity<LibroResponse> getLibroById(HttpServletRequest request, Integer id) {
+        return ResponseEntity.ok(service.getLibroById(id));
     }
 
     @Override
-    public ResponseEntity<?> saveOrdine(HttpServletRequest request, LibroRequest oOrdineAcquistoRequest) {
-        ordineacquistoService.save(oOrdineAcquistoRequest);
-        return new ResponseEntity<Object>(HttpStatus.OK);
-    }
-    @Override
-    public ResponseEntity<?> deleteById(HttpServletRequest request, Integer id) {
-        ordineacquistoService.deleteById(id);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+    public ResponseEntity<?> insertUpdate(HttpServletRequest request, LibroRequest libroRequest) {
+        service.save(libroRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Page<PrenotazioneResponse>> findDettagli(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
-        return ResponseEntity.ok(ordineacquistoService.findDettagli(id,pageIndex,pageSize));
+    public ResponseEntity<?> delete(HttpServletRequest request, Integer id) {
+        service.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<ArrayList<PrenotazioneResponse>> findDettagli1(HttpServletRequest request, int id) {
-        return ResponseEntity.ok(ordineacquistoService.findDettagli1(id));
+    public Page<LibroResponse> getAllLibriPage(HttpServletRequest request, int pageIndex, int pageSize) {
+        return null;
     }
-
-    @Override
-    public Page<LibroResponse> filterDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
-        return ordineacquistoService.filterOrdini(filterDateRequest,pageIndex,pageSize);
-    }
-
-    @Override
-    public Page<LibroResponse> filterOnlyDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
-        return ordineacquistoService.filterOnlyDate(filterDateRequest,pageIndex,pageSize);
-    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraProgettoData(HttpServletRequest request, Map<String, Object> requestBody, int page, int itemsPerPage) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraSottocategoriaData(HttpServletRequest request, Map<String, Object> requestBody, int page, int itemsPerPage) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraFornitore(HttpServletRequest request, Integer id, int page, int itemsPerPage) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraProgetto(HttpServletRequest request, Integer id, int page, int itemsPerPage) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraSottocategoria(HttpServletRequest request, Integer id, int page, int itemsPerPage) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<OrdineacquistoResponse> filtraData(HttpServletRequest request, Map<String, Object> requestBody, int page, int itemsPerPage) {
-//        return null;
-//    }
-
 
 }

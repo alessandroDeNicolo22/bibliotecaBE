@@ -40,7 +40,7 @@ public class Studente {
     @Column(name = "Datadinascita")
     private Date dataDiNascita;
 
-    @JoinColumn(name = "Indirizzo")
+    @Column(name = "Indirizzo")
     private String indirizzo;
 
     @Column(name = "Comune")
@@ -49,9 +49,9 @@ public class Studente {
     @Column(name = "Provincia", length = 2)
     private String provincia;
 
-    @JoinColumn(name = "Nazione")
+    @Column(name = "Nazione")
     private String nazione;
 
-    @JoinColumn(name = "Telefono")
+    @Column(name = "Telefono")
     private Integer telefono;
 }

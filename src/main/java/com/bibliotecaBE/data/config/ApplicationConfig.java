@@ -1,5 +1,6 @@
 package com.bibliotecaBE.data.config;
 
+import com.bibliotecaBE.data.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +21,11 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> utenteRepo.findByEmail(username)
-                .orElseThrow(()-> new UsernameNotFoundException("Utente non trovato"));
+        try {
+            return username -> utenteRepo.findByEmail(username);
+        }catch (UsernameNotFoundException e){
+            throw new UsernameNotFoundException("Utente non trovato");
+        }
     }
 
     @Bean

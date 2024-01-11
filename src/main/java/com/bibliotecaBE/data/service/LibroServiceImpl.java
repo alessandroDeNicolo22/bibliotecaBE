@@ -2,7 +2,6 @@ package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.LibroRequest;
 import com.bibliotecaBE.data.dto.Response.LibroResponse;
-import com.bibliotecaBE.data.dto.Response.PrenotazioneResponse;
 import com.bibliotecaBE.data.entity.*;
 import com.bibliotecaBE.data.repository.LibroRepo;
 import com.bibliotecaBE.data.repository.PrenotazioneRepo;
@@ -81,12 +80,9 @@ public class LibroServiceImpl implements LibroService {
         repo.save(libro);
     }
 
-//    @Override
-//    public void deleteById(Integer id) {
-//        QOrdinedettaglio ordinedettaglio = QOrdinedettaglio.ordinedettaglio;
-//        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-//        queryFactory.delete(ordinedettaglio).where(ordinedettaglio.oOrdineAcquisto.id.eq(id)).execute();
-//        repo.deleteById(id);
-//    }
+    @Override
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
+    }
 
 }

@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping(path = "/prenotazione")
 @CrossOrigin(origins = "http://localhost:4200")
 public interface PrenotazioneAPI {
 
     @GetMapping(path = "/list", produces = "application/json")
-    ResponseEntity<ArrayList<PrenotazioneResponse>> list(HttpServletRequest request);
+    ResponseEntity<List<PrenotazioneResponse>> list(HttpServletRequest request);
 
     @GetMapping(path = "/listpage", produces = "application/json")
     Page<PrenotazioneResponse> getAllPrenotazioniPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
@@ -31,7 +32,5 @@ public interface PrenotazioneAPI {
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> deleteById(HttpServletRequest request, @PathVariable Integer id);
 
-    @GetMapping(path = "/checkElimina/{id}", produces = "application/json")
-    ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 }
 

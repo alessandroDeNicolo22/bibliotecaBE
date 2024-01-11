@@ -36,6 +36,5 @@ public interface LibroAPI {
 	@GetMapping(path = "/listpage", produces = "application/json")
 	public Page<LibroResponse> getAllLibriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
-	@GetMapping(path = "/check/{id}", produces = "application/json")
-	public ResponseEntity<Boolean> check(HttpServletRequest request, @PathVariable Integer id);
+
 }

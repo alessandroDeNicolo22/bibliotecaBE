@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 @RestController
 public class GenereRestController implements GenereAPI {
+
 @Autowired
 GenereService service;
     @Override
@@ -23,19 +24,18 @@ GenereService service;
     }
 
     @Override
-    public ResponseEntity<Page<GenereResponse>> getOrdiniByFornitore(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
-        return ResponseEntity.ok(service.getAllFatture(id,pageIndex,pageSize));
+    public Page<GenereResponse> getAllGenerePage(HttpServletRequest request, int pageIndex, int pageSize) {
+        return null;
     }
 
     @Override
     public ResponseEntity<GenereResponse> findById(HttpServletRequest request, Integer id) {
-
-        return ResponseEntity.ok(service.getFatturaById(id));
+        return ResponseEntity.ok(service.getGenereById(id));
     }
 
     @Override
-    public ResponseEntity<?> saveFattura(HttpServletRequest request, GenereRequest fatturapassivaRequest) {
-        service.save(fatturapassivaRequest);
+    public ResponseEntity<?> saveGenere(HttpServletRequest request, GenereRequest genereRequest) {
+        service.save(genereRequest);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
@@ -45,23 +45,4 @@ GenereService service;
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<Page<CopiaResponse>> findDettagli(HttpServletRequest request, Integer id, int pageIndex, int pageSize) {
-        return ResponseEntity.ok(service.findDettagli(id, pageIndex, pageSize));
-    }
-
-    @Override
-    public ResponseEntity<ArrayList<CopiaResponse>> findDettagli1(HttpServletRequest request, int id) {
-        return ResponseEntity.ok(service.findDettagli1(id));
-    }
-
-    @Override
-    public Page<GenereResponse> filterDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
-        return service.filterFatture(filterDateRequest, pageIndex, pageSize);
-    }
-
-    @Override
-    public Page<GenereResponse> filterOnlyDate(HttpServletRequest request, FilterDateRequest filterDateRequest, int pageIndex, int pageSize) {
-        return service.filterOnlyDate(filterDateRequest, pageIndex, pageSize);
-    }
 }

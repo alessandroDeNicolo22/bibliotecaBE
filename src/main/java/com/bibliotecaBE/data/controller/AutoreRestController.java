@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bibliotecaBE.data.dto.Response.AutoreResponse;
+import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
+import com.bibliotecaBE.data.service.AutoreService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +19,23 @@ import com.bibliotecaBE.data.dto.Request.AutoreRequest;
 @RestController
 public class AutoreRestController implements AutoreAPI {
 
+	@Autowired
+	AutoreService service;
+
 
 	@Override
-	public ResponseEntity<ArrayList<AutoreResponse>> getAllFornitori(HttpServletRequest request) {
-		return ResponseEntity.ok(service.getAllAliquota());
+	public ResponseEntity<ArrayList<AutoreResponse>> getAllAutori(HttpServletRequest request) {
+		return new ResponseEntity<>(service.getAllAutori(), HttpStatus.OK);
 	}
 
 	@Override
-	public Page<AutoreResponse> getAllFornitoriPage(HttpServletRequest request, int pageIndex, int pageSize) {
-		return service.getPageAliquote(pageIndex, pageSize);
+	public ResponseEntity<Page<AutoreResponse>> getAllAutoriPage(HttpServletRequest request, int pageIndex, int pageSize) {
+		return new ResponseEntity<>(service.getPageAutori(pageIndex,pageSize),HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<AutoreResponse> findById(HttpServletRequest request, Integer id) {
-		return ResponseEntity.ok(service.getAliquotaivaById(id));
+		return new ResponseEntity<>(service.getAutoreById(id), HttpStatus.OK);
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class AutoreRestController implements AutoreAPI {
 
 	@Override
 	public ResponseEntity<Boolean> check(HttpServletRequest request, Integer id) {
-		return new ResponseEntity<Boolean>(service.checkElimina(id),HttpStatus.OK);
+		return new ResponseEntity<>(service.checkElimina(id), HttpStatus.OK);
 	}
 
 }

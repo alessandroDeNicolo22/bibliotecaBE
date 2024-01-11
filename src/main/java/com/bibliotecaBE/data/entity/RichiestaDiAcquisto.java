@@ -15,11 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 @Entity
-@Table(name ="RichiestaDiAcquisto")
+@Table(name ="Richiestadiacquisto")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class RichiestaDiAcquisto {
 
 	//Sezione Attributi
@@ -28,9 +27,6 @@ public class RichiestaDiAcquisto {
 	@SequenceGenerator(name = "SEQCHIAVERICHIESTADIACQUISTO", sequenceName = "SEQCHIAVERICHIESTADIACQUISTO", allocationSize = 1)
 	@GeneratedValue(generator = "SEQCHIAVERICHIESTADIACQUISTO", strategy = GenerationType.SEQUENCE)
 	private Integer id;
-
-	@Column(name = "Spesainvestimento")
-	private String spesainvestimento;
 
 	@ManyToOne
 	@JoinColumn(name = "IDProfessore")
@@ -44,7 +40,7 @@ public class RichiestaDiAcquisto {
 	private Libro oLibro;
 
 	@ManyToOne
-	@Column(name = "IDAutore")
+	@JoinColumn(name = "IDAutore")
 	private Autore oAutore;
 
 	@ManyToOne

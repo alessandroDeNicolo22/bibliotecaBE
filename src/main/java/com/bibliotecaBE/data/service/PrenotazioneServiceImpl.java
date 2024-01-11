@@ -3,7 +3,6 @@ package com.bibliotecaBE.data.service;
 import com.bibliotecaBE.data.dto.Request.PrenotazioneRequest;
 import com.bibliotecaBE.data.dto.Response.PrenotazioneResponse;
 import com.bibliotecaBE.data.entity.Prenotazione;
-import com.bibliotecaBE.data.entity.QOrdineacquisto;
 import com.bibliotecaBE.data.repository.PrenotazioneRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;

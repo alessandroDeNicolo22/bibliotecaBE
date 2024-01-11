@@ -1,5 +1,6 @@
 package com.bibliotecaBE.data.dto.Request;
 
+import com.bibliotecaBE.data.entity.Copia;
 import com.bibliotecaBE.data.entity.Genere;
 import com.bibliotecaBE.data.entity.Libro;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +22,7 @@ public class PrestitoRequest {
     private Integer idDestinatario;
 
     @JsonProperty
-    private Libro oLibro;
+    private Copia oCopia;
 
     @JsonProperty
     private String destinatario;

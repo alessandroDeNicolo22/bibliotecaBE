@@ -19,43 +19,37 @@ import com.bibliotecaBE.data.service.CasaEditriceService;
 public class CasaeditriceRestController implements CasaeditriceAPI {
 	
 	@Autowired
-    CasaEditriceService areaService;
+    CasaEditriceService service;
 
     @Override
-    public ResponseEntity<ArrayList<CasaeditriceResponse>> getAllAree(HttpServletRequest request) {
-        // TODO Auto-generated method stub
-        return new ResponseEntity<ArrayList<CasaeditriceResponse>>(areaService.getAllAree(), HttpStatus.OK);
+    public ResponseEntity<ArrayList<CasaeditriceResponse>> getAllCE(HttpServletRequest request) {
+        return new ResponseEntity<>(service.getAllCaseEditrici(), HttpStatus.OK);
     }
     
     @Override
-	public Page<CasaeditriceResponse> getAllAreePage(HttpServletRequest request, int pageIndex, int pageSize) {
-		// TODO Auto-generated method stub
-		return areaService.getAllAreePage(pageIndex, pageSize);
+	public Page<CasaeditriceResponse> getAllCEPage(HttpServletRequest request, int pageIndex, int pageSize) {
+		return null;
 	}
 
     @Override
     public ResponseEntity<CasaeditriceResponse> findById(HttpServletRequest request, Integer id) {
-        // TODO Auto-generated method stub
-        return new ResponseEntity<CasaeditriceResponse>(areaService.getAreaById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.getCasaEditriceById(id), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> insertUpdate(HttpServletRequest request, CasaeditriceRequest oCasaeditriceRequest) {
-        // TODO Auto-generated method stub
-        areaService.save(oCasaeditriceRequest);
+        service.save(oCasaeditriceRequest);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Boolean> checkDelete(HttpServletRequest request, Integer id) {
-        // TODO Auto-generated method stub
-        return new ResponseEntity<Boolean>(areaService.checkDelete(id), HttpStatus.OK);
+        return null;
     }
 
     @Override
     public ResponseEntity<?> delete(HttpServletRequest request, Integer id) {
-        // TODO Auto-generated method stub
-        areaService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 

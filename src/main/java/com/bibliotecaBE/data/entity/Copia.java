@@ -32,13 +32,13 @@ public class Copia {
 		@JoinColumn(name="IDLibro")
 		private Libro oLibro;
 
-		@JoinColumn(name="Stato")
+		@Column(name="Stato")
 		private String stato;
 
-		@JoinColumn(name="Datadiacquisto")
+		@Column(name="Datadiacquisto")
 		private Date date;
 
-		@JoinColumn(name="Seriale")
+		@Column(name="Seriale")
 		private String seriale;
 
 }

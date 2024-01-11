@@ -33,19 +33,18 @@ public class Prestito {
 	private Integer idDestinatario;
 
 	@ManyToOne
-	@Column(name="IDLibro")
-	private Libro oLibro;
+	@JoinColumn(name = "IDLibro")
+	private Copia oCopia;
 
-	@JoinColumn(name="Destinatario")
+	@Column(name="Destinatario")
 	private String destinatario;
-
 
 	@Column(name ="Datainizio")
 	private Date dataInizio;
 
-	@Column(name ="DataFine")
+	@Column(name ="Datafine")
 	private Date dataFine;
 
-	@Column(name ="DataiRestituzione")
+	@Column(name ="Datarestituzione")
 	private Date dataRestituzione;
 }

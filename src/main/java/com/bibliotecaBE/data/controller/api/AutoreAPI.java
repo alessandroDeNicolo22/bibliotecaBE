@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bibliotecaBE.data.dto.Request.AutoreRequest;
-import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bibliotecaBE.data.dto.Response.AutoreResponse;
 
-@RequestMapping(path="/casaeditrice")
+@RequestMapping(path="/autore")
 @CrossOrigin(origins = "http://localhost:4200")
 public interface AutoreAPI {
 
 	@GetMapping(path = "/list", produces = "application/json")
-    ResponseEntity<ArrayList<CasaeditriceResponse>> getAllCE(HttpServletRequest request);
+    ResponseEntity<ArrayList<AutoreResponse>> getAllAutori(HttpServletRequest request);
 
 	@GetMapping(path = "/listpage", produces = "application/json")
-    Page<AutoreResponse> getAllAutoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+    ResponseEntity<Page<AutoreResponse>> getAllAutoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "5") int pageSize);
 
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
     ResponseEntity<AutoreResponse> findById(HttpServletRequest request, @PathVariable Integer id);

@@ -17,38 +17,34 @@ import java.util.ArrayList;
 public class PrestitoRestController implements PrestitoAPI {
 
     @Autowired
-    PrestitoService preventivoService;
+    PrestitoService service;
 
     @Override
-    public ResponseEntity<ArrayList<PrestitoResponse>> getAllPreventivi(HttpServletRequest request){
-        return new ResponseEntity<ArrayList<PrestitoResponse>>(this.preventivoService.getAllPreventivi(), HttpStatus.OK);
+    public ResponseEntity<ArrayList<PrestitoResponse>> getAllPrestiti(HttpServletRequest request){
+        return new ResponseEntity<>(this.service.getAllPrestiti(), HttpStatus.OK);
     }
 
 
     @Override
     public Page<PrestitoResponse> page(HttpServletRequest request, Integer id, Integer pageIndex, Integer pageSize) {
-        return this.preventivoService.getPagePerIdFornitore(id, pageIndex, pageSize);
+        return null;
     }
 
     @Override
     public ResponseEntity<PrestitoResponse> findById(HttpServletRequest request, Integer id) {
-        return new ResponseEntity<PrestitoResponse>(this.preventivoService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> insertUpdate(HttpServletRequest request, PrestitoRequest oPreventivo) {
-        this.preventivoService.save(oPreventivo);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+    public ResponseEntity<?> save(HttpServletRequest request, PrestitoRequest oPreventivo) {
+        this.service.save(oPreventivo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<Boolean> verificaElimina(HttpServletRequest request, Integer id) {
-        return new ResponseEntity<Boolean>(this.preventivoService.checkDelete(id), HttpStatus.OK);
-    }
 
     @Override
-    public ResponseEntity<?> elimina(HttpServletRequest request, Integer id) {
-        this.preventivoService.deleteById(id);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+    public ResponseEntity<?> delete(HttpServletRequest request, Integer id) {
+        this.service.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

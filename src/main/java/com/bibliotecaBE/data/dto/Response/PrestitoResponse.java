@@ -1,5 +1,6 @@
 package com.bibliotecaBE.data.dto.Response;
 
+import com.bibliotecaBE.data.entity.Copia;
 import com.bibliotecaBE.data.entity.Genere;
 import com.bibliotecaBE.data.entity.Libro;
 import com.fasterxml.jackson.annotation.JsonProperty;

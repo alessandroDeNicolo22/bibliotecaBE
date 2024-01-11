@@ -5,6 +5,7 @@ import com.bibliotecaBE.data.dto.Request.UtenteRequest;
 import com.bibliotecaBE.data.dto.Response.UtenteResponse;
 import com.bibliotecaBE.data.entity.Utente;
 import com.bibliotecaBE.data.enums.Role;
+import com.bibliotecaBE.data.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public UtenteResponse getUtenteByUsername(String email) {
-        Utente utente = utenteRepo.findByEmail(email).get();
+        Utente utente = utenteRepo.findByEmail(email);
         return new UtenteResponse(utente.getId(), utente.getNome(), utente.getCognome(), utente.getEmail(),
                 utente.getPassword(), utente.getRole());
     }
@@ -99,7 +100,7 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public void addRoleToUser(String email, Role role) {
-        Utente oUtente = utenteRepo.findByEmail(email).get();
+        Utente oUtente = utenteRepo.findByEmail(email);
         oUtente.setRole(role);
         utenteRepo.save(oUtente);
     }
@@ -126,8 +127,8 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public Boolean emailEsistente(UtenteRequest oUtenteRequest){
-        return this.utenteRepo.findByEmail(oUtenteRequest.getEmail()).isPresent();
-
+        Utente utente = utenteRepo.findByEmail(oUtenteRequest.getEmail());
+        return utente != null;
     }
 
     @Override

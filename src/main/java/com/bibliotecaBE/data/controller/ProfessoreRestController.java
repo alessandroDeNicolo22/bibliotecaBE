@@ -19,38 +19,33 @@ import com.bibliotecaBE.data.service.ProfessoreService;
 public class ProfessoreRestController implements ProfessoreAPI {
 	
 	@Autowired
-    ProfessoreService progettoService;
+    ProfessoreService service;
 
 	@Override
-	public Page<ProfessoreResponse> getAllProgettiPage(HttpServletRequest request, int pageIndex, int pageSize) {
-		return progettoService.getAllProgettiPage(pageIndex, pageSize);
+	public Page<ProfessoreResponse> getAllProfessoriPage(HttpServletRequest request, int pageIndex, int pageSize) {
+		return null;
 	}
 	
 	@Override
-	public ResponseEntity<ArrayList<ProfessoreResponse>> getAllProgetti(HttpServletRequest request) {
-		return new ResponseEntity<ArrayList<ProfessoreResponse>>(progettoService.getAllProgetti(), HttpStatus.OK);
+	public ResponseEntity<ArrayList<ProfessoreResponse>> getAllProfessori(HttpServletRequest request) {
+		return new ResponseEntity<>(service.getAllProfessori(), HttpStatus.OK);
 	}
 	
 	@Override
 	public ResponseEntity<ProfessoreResponse> findById(HttpServletRequest request, Integer id) {
-		return new ResponseEntity<ProfessoreResponse>(progettoService.findById(id), HttpStatus.OK);
+		return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
 	}
 
     @Override
-    public ResponseEntity<?> insertUpdate(HttpServletRequest request, ProfessoreRequest oProfessoreRequest) {
-        progettoService.save(oProfessoreRequest);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+    public ResponseEntity<?> save(HttpServletRequest request, ProfessoreRequest oProfessoreRequest) {
+        service.save(oProfessoreRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> deleteById(HttpServletRequest request, Integer id) {
-        progettoService.deleteById(id);
-        return new ResponseEntity<Object>(HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<Boolean> checkDelete(HttpServletRequest request, Integer id) {
-        return new ResponseEntity<Boolean>(progettoService.check(id), HttpStatus.OK);
+    public ResponseEntity<?> delete(HttpServletRequest request, Integer id) {
+        service.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

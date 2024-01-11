@@ -3,6 +3,7 @@ package com.bibliotecaBE.data.service;
 import com.bibliotecaBE.data.config.ServiceJWT;
 import com.bibliotecaBE.data.dto.Request.AuthenticationRequest;
 import com.bibliotecaBE.data.dto.Response.AuthenticationResponse;
+import com.bibliotecaBE.data.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         try {
             authManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-            var utente = utenteRepo.findByEmail(authenticationRequest.getEmail()).orElseThrow();
-            System.out.println(utente);
+            var utente = utenteRepo.findByEmail(authenticationRequest.getEmail());
             var jwtToken = authService.generateToken(utente);
             AuthenticationResponse authenticationResponse = new AuthenticationResponse();
             authenticationResponse.setToken(jwtToken);

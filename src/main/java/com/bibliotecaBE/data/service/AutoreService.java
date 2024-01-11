@@ -15,6 +15,6 @@ public interface AutoreService {
 	public AutoreResponse getAutoreById(Integer id);
 	public void save(AutoreRequest oAutoreRequest);
 	public void deleteById(Integer id);
-//	public Boolean checkElimina(Integer id);
-//	public Page<AutoreResponse>getPageAutori(Integer pageIndex, Integer pageSize);
+    public Boolean checkElimina(Integer id);
+	public Page<AutoreResponse>getPageAutori(Integer pageIndex, Integer pageSize);
 }

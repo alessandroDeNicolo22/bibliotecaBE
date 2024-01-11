@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 import com.bibliotecaBE.data.dto.Response.AutoreResponse;
 import com.bibliotecaBE.data.entity.Autore;
+import com.bibliotecaBE.data.entity.QAutore;
+import com.bibliotecaBE.data.entity.QLibro;
 import com.bibliotecaBE.data.repository.AutoreRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +17,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.bibliotecaBE.data.dto.Request.AutoreRequest;
-import com.bibliotecaBE.data.entity.QAliquotaiva;
-import com.bibliotecaBE.data.entity.QFatturadettaglio;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 @Service
 @Transactional
@@ -53,36 +53,33 @@ public class AutoreServiceImpl implements AutoreService {
 		repo.deleteById(id);
 	}
 
-//	@Override
-//	public Boolean checkElimina(Integer id) {
-////		QFatturadettaglio fatturad = QFatturadettaglio.fatturadettaglio;
-////		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-////		long nAliquota = queryFactory.selectFrom(fatturad).where(fatturad.oAliquotaiva.id.eq(id)).fetch().size();
-////		if(nAliquota==0) {
-////			return true;
-////		}else {
-////			return false;
-////		}
-//	}
+	@Override
+	public Page<AutoreResponse> getPageAutori(Integer pageIndex, Integer pageSize) {
+		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
 
-//	@Override
-//	public Page<AutoreResponse> getPageAutori(Integer pageIndex, Integer pageSize) {
-//		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
-//
-//		QAutore autore = QAliquotaiva.aliquotaiva;
-//		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-//		List<Autore> aliquote =  queryFactory.selectFrom(aliquota).orderBy(aliquota.id.asc()).fetch();
-//		ArrayList<AutoreResponse> elencoResponse = aliquote.stream().map(a->new AutoreResponse(a.getId(),
-//				a.getAliquota(),a.getDescrizione())).collect(Collectors.toCollection(ArrayList::new));
-//
-//		int startIndex = pageIndex * pageSize;
-//		if (startIndex >= elencoResponse.size()) {
-//			return Page.empty();
-//		}
-//		int endIndex = Math.min(startIndex + pageSize, aliquote.size());
-//		List<AutoreResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
-//
-//		return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
-//	}
+		QAutore autore = QAutore.autore;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+
+		List<Autore> autoreList =  queryFactory.selectFrom(autore).orderBy(autore.id.asc()).fetch();
+		ArrayList<AutoreResponse> elencoResponse = autoreList.stream().map(a->new AutoreResponse(a.getId(),
+				a.getCognome(),a.getNome())).collect(Collectors.toCollection(ArrayList::new));
+
+		int startIndex = pageIndex * pageSize;
+		if (startIndex >= elencoResponse.size()) {
+			return Page.empty();
+		}
+		int endIndex = Math.min(startIndex + pageSize, autoreList.size());
+		List<AutoreResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+
+		return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
+	}
+
+	@Override
+	public Boolean checkElimina(Integer id) {
+		QLibro libro = QLibro.libro;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+		long nAutore = queryFactory.selectFrom(libro).where(libro.oAutore.id.eq(id)).fetch().size();
+        return nAutore == 0;
+	}
 
 }

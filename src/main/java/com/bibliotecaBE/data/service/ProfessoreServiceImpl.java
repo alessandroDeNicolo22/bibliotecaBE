@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import com.bibliotecaBE.data.entity.Professore;
-import com.bibliotecaBE.data.entity.QOrdinedettaglio;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
