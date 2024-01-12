@@ -1,14 +1,18 @@
 package com.bibliotecaBE.data.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import com.bibliotecaBE.data.entity.Professore;
+import com.bibliotecaBE.data.dto.Response.GenereResponse;
+import com.bibliotecaBE.data.entity.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -97,6 +101,48 @@ public class ProfessoreServiceImpl implements ProfessoreService {
 	public void deleteById(Integer Id) {
 		repo.deleteById(Id);
 
+	}
+
+	@Override
+	public Boolean checkElimina(Integer Id) {
+		long profPerRichiestaAcq, profPerPrestito, profPerPrenotazione;
+
+		QRichiestaDiAcquisto richiestaDiAcquisto = QRichiestaDiAcquisto.richiestaDiAcquisto;
+		JPAQueryFactory queryFactoryRA = new JPAQueryFactory(emanager);
+		profPerRichiestaAcq = queryFactoryRA.selectFrom(richiestaDiAcquisto).where(richiestaDiAcquisto.oProfessore.id.eq(Id)).fetch().size();
+
+		QPrestito prestito = QPrestito.prestito;
+		JPAQueryFactory queryFactoryPrestito = new JPAQueryFactory(emanager);
+		profPerPrestito = queryFactoryPrestito.selectFrom(prestito).where(prestito.destinatario.eq("P").and(prestito.idDestinatario.eq(Id))).fetch().size();
+
+		QPrenotazione prenotazione = QPrenotazione.prenotazione;
+		JPAQueryFactory queryFactoryPrenotazione = new JPAQueryFactory(emanager);
+		profPerPrenotazione = queryFactoryPrenotazione.selectFrom(prenotazione).where(prenotazione.richiedente.eq("P").and(prenotazione.idRichiedente.eq(Id))).fetch().size();
+
+
+		return profPerRichiestaAcq == 0 && profPerPrestito == 0 && profPerPrenotazione == 0;
+
+	}
+
+	@Override
+	public Page<ProfessoreResponse> getPageProfessori(Integer pageIndex, Integer pageSize) {
+		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+
+		QProfessore professore = QProfessore.professore;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+
+		List<Professore> professoreList =  queryFactory.selectFrom(professore).orderBy(professore.id.asc()).fetch();
+		ArrayList<ProfessoreResponse> elencoResponse = professoreList.stream().map(a->new ProfessoreResponse(a.getId(),
+				a.getCognome(), a.getNome(), a.getMatricola())).collect(Collectors.toCollection(ArrayList::new));
+
+		int startIndex = pageIndex * pageSize;
+		if (startIndex >= elencoResponse.size()) {
+			return Page.empty();
+		}
+		int endIndex = Math.min(startIndex + pageSize, professoreList.size());
+		List<ProfessoreResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+
+		return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
 	}
 
 //	@Override

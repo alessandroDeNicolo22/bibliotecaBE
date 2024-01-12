@@ -11,8 +11,11 @@ import java.util.ArrayList;
 public interface GenereService {
     public ArrayList<GenereResponse> getAll();
 //    public Page<GenereResponse> getAllFatture(int id, int pageIndex, int pageSize);
+
     public GenereResponse getGenereById(Integer id);
+
     public void save (GenereRequest genereRequest);
+
     public void deleteById(Integer id);
 
     public Boolean checkElimina(Integer id);

@@ -2,6 +2,7 @@ package com.bibliotecaBE.data.service;
 
 import java.util.ArrayList;
 
+import com.bibliotecaBE.data.dto.Response.GenereResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public interface ProfessoreService {
 	
 	public void deleteById(Integer Id);
 	
-//	public Boolean check(Integer Id);
+	public Boolean checkElimina(Integer Id);
+
+	public Page<ProfessoreResponse>getPageProfessori(Integer pageIndex, Integer pageSize);
 
 }
