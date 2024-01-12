@@ -31,4 +31,5 @@ public class LibroResponse {
 
     @JsonProperty
     private String titolo;
+
 }

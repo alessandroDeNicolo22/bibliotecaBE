@@ -33,18 +33,19 @@ public class AutoreServiceImpl implements AutoreService {
         return list.stream().map(a->new AutoreResponse(
 				a.getId(),
 				a.getNome(),
-				a.getCognome())).collect(Collectors.toCollection(ArrayList::new));
+				a.getCognome(),
+				a.getnomeCognome())).collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	@Override
 	public AutoreResponse getAutoreById(Integer id) {
 		Autore oAutore = repo.findById(id).get();
-		return new AutoreResponse(oAutore.getId(),oAutore.getCognome(),oAutore.getNome());
+		return new AutoreResponse(oAutore.getId(),oAutore.getCognome(),oAutore.getNome(), oAutore.getnomeCognome());
 	}
 
 	@Override
 	public void save(AutoreRequest oAutoreRequest) {
-		Autore oAutore = new Autore(oAutoreRequest.getId(), oAutoreRequest.getCognome(), oAutoreRequest.getNome());
+		Autore oAutore = new Autore(oAutoreRequest.getId(), oAutoreRequest.getCognome(), oAutoreRequest.getNome(), "");
 		repo.save(oAutore);
 	}
 
@@ -62,7 +63,7 @@ public class AutoreServiceImpl implements AutoreService {
 
 		List<Autore> autoreList =  queryFactory.selectFrom(autore).orderBy(autore.id.asc()).fetch();
 		ArrayList<AutoreResponse> elencoResponse = autoreList.stream().map(a->new AutoreResponse(a.getId(),
-				a.getCognome(),a.getNome())).collect(Collectors.toCollection(ArrayList::new));
+				a.getCognome(),a.getNome(), a.getnomeCognome())).collect(Collectors.toCollection(ArrayList::new));
 
 		int startIndex = pageIndex * pageSize;
 		if (startIndex >= elencoResponse.size()) {

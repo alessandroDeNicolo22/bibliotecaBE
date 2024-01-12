@@ -19,7 +19,7 @@ import com.bibliotecaBE.data.dto.Request.CasaeditriceRequest;
 import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "/casaeditrice")
+@RequestMapping(path = "/ce")
 
 public interface CasaeditriceAPI {
 
@@ -32,13 +32,13 @@ public interface CasaeditriceAPI {
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
     ResponseEntity<CasaeditriceResponse> findById(HttpServletRequest request, @PathVariable Integer id);
 
-	@PostMapping(path = "/nuovoModifica", produces = "application/json", consumes = "application/json")
+	@PostMapping(path = "/save", produces = "application/json", consumes = "application/json")
     ResponseEntity<?> insertUpdate(HttpServletRequest request, @RequestBody CasaeditriceRequest oCasaeditriceRequest);
 
-	@GetMapping(path = "/checkElimina/{id}", produces = "application/json")
+	@GetMapping(path = "/checkDelete/{id}", produces = "application/json")
     ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 
-	@DeleteMapping(path = "/elimina/{id}", produces = "application/json")
+	@DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> delete(HttpServletRequest request, @PathVariable Integer id);
 
 }

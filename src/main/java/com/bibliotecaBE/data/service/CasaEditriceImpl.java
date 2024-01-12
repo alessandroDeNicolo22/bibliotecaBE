@@ -1,14 +1,19 @@
 package com.bibliotecaBE.data.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import com.bibliotecaBE.data.entity.Casaeditrice;
+import com.bibliotecaBE.data.entity.QCasaeditrice;
+import com.bibliotecaBE.data.entity.QLibro;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -39,16 +44,26 @@ public class CasaEditriceImpl implements CasaEditriceService {
 		return elencoResponse;
 	}
 
-//	@Override
-//	public Page<CasaeditriceResponse> getAllAreePage(int pageIndex, int pageSize) {
-//		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
-//		Page<Casaeditrice> areaPage = casaeditriceRepo.findAll(pageRequest);
-//		return areaPage.map(this::entityToDTO);
-//	}
+	@Override
+	public Page<CasaeditriceResponse> getAllCEPage(int pageIndex, int pageSize) {
+		PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
 
-//	public CasaeditriceResponse entityToDTO(Casaeditrice oCasaeditrice) {
-//		return new CasaeditriceResponse(oCasaeditrice.getId(), oCasaeditrice.getCodice(), oCasaeditrice.getArea());
-//	}
+		QCasaeditrice casaeditrice = QCasaeditrice.casaeditrice;
+		JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(emanager);
+
+		List<Casaeditrice> list = jpaQueryFactory.selectFrom(casaeditrice).orderBy(casaeditrice.id.asc()).fetch();
+		ArrayList<CasaeditriceResponse> responses = (ArrayList<CasaeditriceResponse>) list.stream().map(ce->new CasaeditriceResponse(ce.getId(), ce.getNome())).collect(Collectors.toList());
+
+		int startIndex = pageIndex * pageSize;
+		if (startIndex >= responses.size()) {
+			return Page.empty();
+		}
+		int endIndex = Math.min(startIndex + pageSize, list.size());
+
+		List<CasaeditriceResponse> pageItems = responses.subList(startIndex, endIndex);
+
+		return new PageImpl<>(pageItems, pageRequest, responses.size());
+    }
 
 	@Override
 	public CasaeditriceResponse getCasaEditriceById(Integer id) {
@@ -80,16 +95,12 @@ public class CasaEditriceImpl implements CasaEditriceService {
 	}
 
 //	@Override
-//	public Boolean checkDelete(Integer id) {
-//		QSottocategoria oSottocategoria = QSottocategoria.sottocategoria1;
-//		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-//		long nAree = queryFactory.selectFrom(oSottocategoria).where(oSottocategoria.oArea.id.eq(id)).fetch().size();
-//
-//		if(nAree == 0){
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
+	public Boolean checkDelete(Integer id) {
+		QLibro libro  = QLibro.libro;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+		long nCE = queryFactory.selectFrom(libro).where(libro.oCasaeditrice.id.eq(id)).fetch().size();
+
+        return nCE == 0;
+	}
 
 }

@@ -20,4 +20,7 @@ public class AutoreResponse {
 	@JsonProperty
 	private String nome;
 
+	@JsonProperty
+	private String nomeCognome;
+
 }

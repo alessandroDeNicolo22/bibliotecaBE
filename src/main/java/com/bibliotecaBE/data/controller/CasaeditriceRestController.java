@@ -28,7 +28,7 @@ public class CasaeditriceRestController implements CasaeditriceAPI {
     
     @Override
 	public Page<CasaeditriceResponse> getAllCEPage(HttpServletRequest request, int pageIndex, int pageSize) {
-		return null;
+		return service.getAllCEPage(pageIndex,pageSize);
 	}
 
     @Override
@@ -44,7 +44,7 @@ public class CasaeditriceRestController implements CasaeditriceAPI {
 
     @Override
     public ResponseEntity<Boolean> checkDelete(HttpServletRequest request, Integer id) {
-        return null;
+        return new ResponseEntity<>(service.checkDelete(id), HttpStatus.OK);
     }
 
     @Override

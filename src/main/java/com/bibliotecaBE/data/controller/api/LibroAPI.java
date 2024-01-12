@@ -34,7 +34,8 @@ public interface LibroAPI {
 	public ResponseEntity<?> delete (HttpServletRequest request, @PathVariable Integer id);
 	
 	@GetMapping(path = "/listpage", produces = "application/json")
-	public Page<LibroResponse> getAllLibriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+	public Page<LibroResponse> getAllLibriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "5") int pageSize);
 
-
+    @GetMapping(path= "/checkDelete/{id}", produces = "application/json")
+	public ResponseEntity<Boolean> checkDelete(HttpServletRequest request, @PathVariable Integer id);
 }

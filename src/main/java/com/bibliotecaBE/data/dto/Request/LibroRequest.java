@@ -29,4 +29,5 @@ public class LibroRequest {
 
     @JsonProperty
     private String titolo;
+
 }

@@ -35,5 +35,4 @@ public class Libro {
 
 	@Column(name="Titolo")
 	private String titolo;
-
 }

@@ -46,7 +46,12 @@ LibroService service;
 
     @Override
     public Page<LibroResponse> getAllLibriPage(HttpServletRequest request, int pageIndex, int pageSize) {
-        return null;
+        return service.getAllLibriPage(pageIndex,pageSize);
+    }
+
+    @Override
+    public ResponseEntity<Boolean> checkDelete(HttpServletRequest request, Integer id) {
+        return new ResponseEntity<>(service.checkDelete(id), HttpStatus.OK);
     }
 
 }

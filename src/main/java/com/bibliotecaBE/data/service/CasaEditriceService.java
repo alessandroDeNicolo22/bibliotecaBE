@@ -12,8 +12,8 @@ import com.bibliotecaBE.data.dto.Response.CasaeditriceResponse;
 public interface CasaEditriceService {
 	
 	public ArrayList<CasaeditriceResponse> getAllCaseEditrici();
-	
-//	public Page<CasaeditriceResponse> getAllCaseEditriciPage(int pageIndex, int pageSize);
+
+	public Page<CasaeditriceResponse> getAllCEPage (int pageIndex, int pageSize);
 	
 	public CasaeditriceResponse getCasaEditriceById(Integer id);
 	
@@ -21,6 +21,6 @@ public interface CasaEditriceService {
 	
 	public void deleteById(Integer id);
 
-//	public Boolean checkDelete(Integer id);
+	public Boolean checkDelete(Integer id);
 
 }

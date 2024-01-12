@@ -40,4 +40,9 @@ public class Autore {
 	@Column(name="Nome")
 	private String nome;
 
+	private String nomeCognome;
+	public String getnomeCognome(){
+        return nome + " " + cognome;
+	}
+
 }

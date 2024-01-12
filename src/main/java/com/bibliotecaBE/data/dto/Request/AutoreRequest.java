@@ -21,4 +21,5 @@ public class AutoreRequest {
 
 	@JsonProperty
 	private String nome;
+
 }
