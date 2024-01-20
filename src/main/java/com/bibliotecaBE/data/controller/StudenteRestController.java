@@ -24,8 +24,8 @@ public class StudenteRestController implements StudenteAPI {
     }
 
     @Override
-    public Page<StudenteResponse> getAllStudentiPage(HttpServletRequest request, int pageIndex, int pageSize) {
-        return null;
+    public ResponseEntity<Page<StudenteResponse>> getAllStudentiPage(HttpServletRequest request, int pageIndex, int pageSize) {
+        return new ResponseEntity<>(this.service.getPageStudenti(pageIndex, pageSize), HttpStatus.OK);
     }
 
     @Override
@@ -43,6 +43,11 @@ public class StudenteRestController implements StudenteAPI {
     public ResponseEntity<?> delete(HttpServletRequest request, Integer id) {
         service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Boolean> check(HttpServletRequest request, Integer id) {
+        return new ResponseEntity<>(this.service.check(id), HttpStatus.OK);
     }
 
 }
