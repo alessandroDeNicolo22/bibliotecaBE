@@ -26,8 +26,8 @@ public interface ProfessoreAPI {
 	@GetMapping(path = "/list", produces = "application/json")
     ResponseEntity<ArrayList<ProfessoreResponse>> getAllProfessori(HttpServletRequest request);
 
-	@GetMapping(path = "/list-page", produces = "application/json")
-    Page<ProfessoreResponse> getAllProfessoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+	@GetMapping(path = "/listpage", produces = "application/json")
+    ResponseEntity<Page<ProfessoreResponse>> getAllProfessoriPage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
 	@GetMapping(path = "/findbyid/{id}", produces = "application/json")
     ResponseEntity<ProfessoreResponse> findById(HttpServletRequest request, @PathVariable Integer id);
@@ -37,5 +37,8 @@ public interface ProfessoreAPI {
 
 	@DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> delete(HttpServletRequest request, @PathVariable Integer id);
+
+    @GetMapping(path = "/check/{id}", produces = "application/json")
+    ResponseEntity<Boolean> check(HttpServletRequest request, @PathVariable Integer id);
 
 }

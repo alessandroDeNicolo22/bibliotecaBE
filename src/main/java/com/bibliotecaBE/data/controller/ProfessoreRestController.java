@@ -22,8 +22,8 @@ public class ProfessoreRestController implements ProfessoreAPI {
     ProfessoreService service;
 
 	@Override
-	public Page<ProfessoreResponse> getAllProfessoriPage(HttpServletRequest request, int pageIndex, int pageSize) {
-		return null;
+	public ResponseEntity<Page<ProfessoreResponse>> getAllProfessoriPage(HttpServletRequest request, int pageIndex, int pageSize) {
+		return new ResponseEntity<>(this.service.getPageProfessori(pageIndex, pageSize), HttpStatus.OK);
 	}
 	
 	@Override
@@ -47,6 +47,11 @@ public class ProfessoreRestController implements ProfessoreAPI {
         service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+	@Override
+	public ResponseEntity<Boolean> check(HttpServletRequest request, Integer id) {
+		return new ResponseEntity<>(this.service.checkElimina(id), HttpStatus.OK);
+	}
 
 
 }

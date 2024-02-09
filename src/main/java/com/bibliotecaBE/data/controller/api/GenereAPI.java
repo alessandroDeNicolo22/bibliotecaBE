@@ -17,7 +17,7 @@ public interface GenereAPI {
     ResponseEntity<ArrayList<GenereResponse>> list(HttpServletRequest request);
 
     @GetMapping(path = "/listpage", produces = "application/json")
-    Page<GenereResponse> getAllGenerePage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
+    ResponseEntity<Page<GenereResponse>> getAllGenerePage(HttpServletRequest request, @RequestParam(defaultValue = "0") int pageIndex, @RequestParam(defaultValue = "3") int pageSize);
 
     @GetMapping(path = "/findbyid/{id}", produces = "application/json")
     ResponseEntity<GenereResponse> findById(HttpServletRequest request, @PathVariable Integer id);
@@ -28,4 +28,6 @@ public interface GenereAPI {
     @DeleteMapping(path = "/delete/{id}", produces = "application/json")
     ResponseEntity<?> deleteById(HttpServletRequest request, @PathVariable Integer id);
 
+    @GetMapping(path = "/check/{id}", produces = "application/json")
+    ResponseEntity<Boolean> check(HttpServletRequest request, @PathVariable Integer id);
 }

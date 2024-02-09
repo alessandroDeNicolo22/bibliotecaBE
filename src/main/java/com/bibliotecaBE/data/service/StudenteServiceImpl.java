@@ -1,6 +1,7 @@
 package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.StudenteRequest;
+import com.bibliotecaBE.data.dto.Response.ProfessoreResponse;
 import com.bibliotecaBE.data.dto.Response.StudenteResponse;
 import com.bibliotecaBE.data.entity.*;
 import com.bibliotecaBE.data.repository.StudenteRepo;
@@ -21,12 +22,31 @@ import java.util.stream.Collectors;
 public class StudenteServiceImpl implements StudenteService {
     @Autowired
     EntityManager emanager;
+
     @Autowired
     StudenteRepo repo;
-//    @Override
-//    public Page<RichiestaDiAcquistoResponse> getAllSpeseinvestimento(int pageIndex, int pageSize) {
-//    return null;
-//    }
+
+    @Override
+    public Page<StudenteResponse> getPageStudenti(int pageIndex, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+
+        QStudente studente = QStudente.studente;
+        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+
+        List<Studente> studenteList =  queryFactory.selectFrom(studente).orderBy(studente.id.asc()).fetch();
+        ArrayList<StudenteResponse> elencoResponse = studenteList.stream().map(a->new StudenteResponse(a.getId(),
+                a.getCognome(), a.getNome(), a.getMatricola(), a.getDataDiNascita(), a.getIndirizzo(), a.getComune(),
+                a.getProvincia(), a.getNazione(), a.getTelefono())).collect(Collectors.toCollection(ArrayList::new));
+
+        int startIndex = pageIndex * pageSize;
+        if (startIndex >= elencoResponse.size()) {
+            return Page.empty();
+        }
+        int endIndex = Math.min(startIndex + pageSize, studenteList.size());
+        List<StudenteResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+
+        return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
+    }
 
     @Override
     public ArrayList<StudenteResponse> getAllStudenti() {
@@ -77,19 +97,20 @@ public class StudenteServiceImpl implements StudenteService {
     repo.deleteById(id);
     }
 
-//    @Override
-//    public Boolean check(Integer id) {
-//        QOrdinedettaglio ordinedettaglio = QOrdinedettaglio.ordinedettaglio;
-//        QFatturadettaglio qFatturadettaglio = QFatturadettaglio.fatturadettaglio;
-//        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
-//        long nSpese = queryFactory.selectFrom(ordinedettaglio).where(ordinedettaglio.oSpesaInvestimento.id.eq(id)).fetch().size();
-//        long nSpese1 = queryFactory.selectFrom(qFatturadettaglio).where(qFatturadettaglio.oSpesainvestimento.id.eq(id)).fetch().size();
-//        if(nSpese+nSpese1 == 0){
-//            return true;
-//        }else {
-//            return false;
-//        }
-//    }
+    @Override
+    public Boolean check(Integer id) {
+        long studentePerPrenotazione, studentePerPrestito;
+
+        QPrenotazione prenotazione = QPrenotazione.prenotazione;
+        JPAQueryFactory queryFactoryPrenotazione = new JPAQueryFactory(emanager);
+        studentePerPrenotazione = queryFactoryPrenotazione.selectFrom(prenotazione).where(prenotazione.richiedente.eq("S").and(prenotazione.idRichiedente.eq(id))).fetch().size();
+
+        QPrestito prestito = QPrestito.prestito;
+        JPAQueryFactory queryFactoryPrestito = new JPAQueryFactory(emanager);
+        studentePerPrestito = queryFactoryPrestito.selectFrom(prestito).where(prestito.destinatario.eq("S").and(prestito.idDestinatario.eq(id))).fetch().size();
+
+        return studentePerPrenotazione == 0 && studentePerPrestito == 0;
+    }
 //
 //    @Override
 //    public Page<RichiestaDiAcquistoResponse> getSpesaInvestimentoByIdSottoCategoria(Integer id, Integer pageIndex, Integer pageSize) {

@@ -1,6 +1,7 @@
 package com.bibliotecaBE.data.service;
 
 import com.bibliotecaBE.data.dto.Request.GenereRequest;
+import com.bibliotecaBE.data.dto.Response.AutoreResponse;
 import com.bibliotecaBE.data.dto.Response.GenereResponse;
 import com.bibliotecaBE.data.entity.*;
 import com.bibliotecaBE.data.repository.GenereRepo;
@@ -59,6 +60,35 @@ public class GenereServiceImpl implements GenereService {
     @Override
     public void deleteById(Integer id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public Boolean checkElimina(Integer id) {
+        QLibro libro = QLibro.libro;
+        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+        long nGeneri = queryFactory.selectFrom(libro).where(libro.oGenere.id.eq(id)).fetch().size();
+        return nGeneri == 0;
+    }
+
+    @Override
+    public Page<GenereResponse> getPageGeneri(Integer pageIndex, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+
+        QGenere genere = QGenere.genere;
+        JPAQueryFactory queryFactory = new JPAQueryFactory(emanager);
+
+        List<Genere> genereList =  queryFactory.selectFrom(genere).orderBy(genere.id.asc()).fetch();
+        ArrayList<GenereResponse> elencoResponse = genereList.stream().map(a->new GenereResponse(a.getId(),
+                a.getNome())).collect(Collectors.toCollection(ArrayList::new));
+
+        int startIndex = pageIndex * pageSize;
+        if (startIndex >= elencoResponse.size()) {
+            return Page.empty();
+        }
+        int endIndex = Math.min(startIndex + pageSize, genereList.size());
+        List<GenereResponse> pageItems = elencoResponse.subList(startIndex, endIndex);
+
+        return new PageImpl<>(pageItems, pageRequest, elencoResponse.size());
     }
 
 }
